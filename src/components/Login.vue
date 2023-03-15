@@ -6,20 +6,25 @@ import WelcomeItem from './WelcomeItem.vue'
   <WelcomeItem>
     <template #heading>登录</template>
     <div class="login-container">
-      <form @submit.prevent="login" class="login-form">
+      <form @submit.prevent="confirm" class="login-form">
         <div class="form-group">
-          <label for="username" class="form-label">邮箱:</label>
+          <label for="username" class="form-label">
+            邮箱: （建议编造）</label>
           <input
             v-model="username"
             id="username"
             type="text"
             name="username"
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            oninvalid="this.setCustomValidity('请输入合规的电子邮件地址')"
+            oninput="this.setCustomValidity('')"
             class="form-input"
           />
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">密码:</label>
+          <label for="password" class="form-label">
+            密码: （如：123）</label>
           <input
             v-model="password"
             id="password"
@@ -37,6 +42,53 @@ import WelcomeItem from './WelcomeItem.vue'
     </div>
   </WelcomeItem>
 </template>
+
+
+<script>
+export default {
+  name: "login",
+  data(){
+    return {
+      username: '',
+      password: '',
+      error: '',
+    }
+  },
+  methods:{
+      async confirm(){
+        try {
+          // 发送登录请求
+          console.log('登录中...')
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: this.username,
+              password: this.password,
+            }),
+          })
+
+          if (response.ok) {
+            //TODO: 登录成功，跳转到首页
+            this.$router.push('/')
+          } else {
+            // 登录失败，显示错误信息
+            const data = await response.json()
+            this.error = data.message
+            //TODO: 显示出没找到用户，请先注册，或者密码错误
+            this.$router.replace('/signup');
+          }
+        } catch (error) {
+          // 发送请求出错，显示错误信息
+          this.error = '网络错误，请稍后再试'
+        }
+
+    }
+  }
+}
+</script>
 
 <style>
 .login-form {
@@ -85,6 +137,12 @@ input[type='password'] {
 .login-button:active {
   background-color: var(--color-border-hover);
 }
+.error {
+  color: red;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
 @media (max-width: 600px) {
   .form-container {
     width: 100%;

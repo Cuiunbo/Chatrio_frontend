@@ -10,7 +10,9 @@ defineProps({
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>这是一个小型的Web端即使通讯系统, 请登录以开始体验~</h3>
+    <h3>这是一个小型的Web端即使通讯系统, 请登录以开始体验~
+      <br><br>注意 : 数据库服务器可能不定期清库
+    </h3>
   </div>
 </template>
 
