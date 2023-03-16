@@ -59,7 +59,7 @@ export default {
         try {
           // 发送登录请求
           console.log('登录中...')
-          const response = await fetch('/api/login', {
+          const response = await fetch('http://localhost:5000/api/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -73,12 +73,13 @@ export default {
           if (response.ok) {
             //TODO: 登录成功，跳转到首页
             this.$router.push('/')
+            console.log('登录成功')
           } else {
             // 登录失败，显示错误信息
             const data = await response.json()
             this.error = data.message
             //TODO: 显示出没找到用户，请先注册，或者密码错误
-            this.$router.replace('/signup');
+            // this.$router.replace('/signup');
           }
         } catch (error) {
           // 发送请求出错，显示错误信息
