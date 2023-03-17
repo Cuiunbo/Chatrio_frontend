@@ -1,21 +1,5 @@
 # 数据库设计
 
-群组
-| 时间戳 | 撤回tag | 发送方 | 消息类型 | 内容 |
-| ------ | ------- | ------ | -------- | ---- |
-|        |         |        |          |      |
-|        |         |        |          |      |
-
-用户
-| 用户ID | 昵称 | 密码 | 其他 |
-| ------ | ---- | ---- | ---- |
-|        |      |      |      |
-
-群组-用户
-| 接受方ID | 对应群组 | 最后消息时间 |
-| -------- | -------- | ------------ |
-|          |          |              |
-
 ### 用户表（users）
 -   user_id：INT类型（主键），自增，唯一
 -   user_name：VARCHAR(50)类型，不能为空
@@ -38,10 +22,3 @@
 -   content：TEXT类型，限制长度为500个字符以内，不能为空
 -   is_recalled：BOOLEAN类型，标志是否撤回
 -   created_at：TIMESTAMP类型，记录创建时间，应使用UTC时间存储
-
-
-
-
--   用户表（users）：username和email列应该添加唯一性约束（UNIQUE），以确保不会有重复的值。可以在id、username、email上分别添加索引（INDEX），以便查询时快速查找。
--   好友表（friends）：user_id和friend_id列应该添加外键约束（FOREIGN KEY），以确保只有存在的用户才能成为好友。可以在user_id和friend_id上分别添加索引（INDEX），以便查询时快速查找。
--   聊天室成员表（chat_room_members）和消息表（messages）：chat_room_id列应该添加外键约束（FOREIGN KEY），以确保只有存在的聊天室才能添加成员和发送消息。可以在chat_room_id上添加索引（INDEX），以便查询时快速查找。
