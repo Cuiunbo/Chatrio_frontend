@@ -6,11 +6,11 @@
 -   password：VARCHAR(50)类型，不能为空
 -   email：VARCHAR(255)类型，不能为空，唯一性约束（UNIQUE），应使用正则表达式约束满足电子邮件格式
 
-### 聊天室表（chat_rooms）
+### 聊天室表（rooms）
 -   room_id：INT类型（主键），自增，唯一
 -   room_name：VARCHAR(50)类型，不能为空
 
-### 聊天室成员表（chat_room_members）
+### 聊天室成员表（room_user）
 -   user_id：INT类型（外键），关联用户表的id列
 -   chat_room_id：INT类型（外键），关联聊天室表的id列
 
