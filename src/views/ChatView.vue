@@ -1,9 +1,9 @@
 <script setup>
-import Signup from '../components/Register.vue'
+import Chat from '../components/Chat.vue'
 </script>
 
 <template>
   <main>
-    <Signup />
+    <Chat />
   </main>
 </template>

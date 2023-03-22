@@ -1,8 +1,11 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
+import home from './Home.vue'
 </script>
 
 <template>
+  <div class="container">
+  <home />
   <WelcomeItem>
     <template #heading>注册</template>
     <div class="login-container">
@@ -68,6 +71,7 @@ import WelcomeItem from './WelcomeItem.vue'
       <div v-if="error" class="error">{{ error }}</div>
     </div>
   </WelcomeItem>
+  </div>
 </template>
 
 <script>
@@ -75,6 +79,10 @@ import WelcomeItem from './WelcomeItem.vue'
 
 
 <style>
+.container {
+  /* display: flex;
+  flex-wrap: wrap; */
+}
 .login-form {
   background-color: var(--color-background);
   padding: 2rem;

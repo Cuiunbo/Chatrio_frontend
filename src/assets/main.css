@@ -25,11 +25,11 @@ a,
   body {
     display: flex;
     place-items: center;
+    /* flex-direction: row; */
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     padding: 0 2rem;
   }
 }

@@ -10,9 +10,4 @@ import Login from '../components/Login.vue'
 
 <script>
 
-export default {
-  components: {
-    Login,
-  },
-};
 </script>

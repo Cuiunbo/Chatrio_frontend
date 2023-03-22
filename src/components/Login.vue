@@ -1,8 +1,10 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
+import home from './Home.vue'
 </script>
 
 <template>
+  <home />
   <WelcomeItem>
     <template #heading>登录</template>
     <div class="login-container">
@@ -56,35 +58,39 @@ export default {
   },
   methods:{
       async confirm(){
-        try {
-          // 发送登录请求
-          console.log('登录中...')
-          const response = await fetch('http://localhost:5000/api/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: this.username,
-              password: this.password,
-            }),
-          })
+      //   this.$router.push('/chat').then(() => {
+      //   window.location.reload();
+      // });
+        this.$router.push('/chat')
+        // try {
+        //   // 发送登录请求
+        //   console.log('登录中...')
+        //   const response = await fetch('http://localhost:5000/api/login', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //       username: this.username,
+        //       password: this.password,
+        //     }),
+        //   })
 
-          if (response.ok) {
-            //TODO: 登录成功，跳转到首页
-            this.$router.push('/')
-            console.log('登录成功')
-          } else {
-            // 登录失败，显示错误信息
-            const data = await response.json()
-            this.error = data.message
-            //TODO: 显示出没找到用户，请先注册，或者密码错误
-            // this.$router.replace('/signup');
-          }
-        } catch (error) {
-          // 发送请求出错，显示错误信息
-          this.error = '网络错误，请稍后再试'
-        }
+        //   if (response.ok) {
+        //     //TODO: 登录成功，跳转到首页
+        //     this.$router.push('/chat')
+        //     console.log('登录成功')
+        //   } else {
+        //     // 登录失败，显示错误信息
+        //     const data = await response.json()
+        //     this.error = data.message
+        //     //TODO: 显示出没找到用户，请先注册，或者密码错误
+        //     // this.$router.replace('/signup');
+        //   }
+        // } catch (error) {
+        //   // 发送请求出错，显示错误信息
+        //   this.error = '网络错误，请稍后再试'
+        // }
 
     }
   }

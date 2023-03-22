@@ -1,4 +1,6 @@
+
 <template>
+
   <div class="item">
     <div class="details">
       <h3>
