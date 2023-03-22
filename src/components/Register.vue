@@ -6,20 +6,40 @@ import WelcomeItem from './WelcomeItem.vue'
   <WelcomeItem>
     <template #heading>注册</template>
     <div class="login-container">
-      <form @submit.prevent="login" class="login-form">
+      <form @submit.prevent="signup" class="login-form">
         <div class="form-group">
-          <label for="username" class="form-label">邮箱:</label>
+          <label for="username" class="form-label">
+            用户名: （建议编造）</label>
           <input
             v-model="username"
             id="username"
             type="text"
             name="username"
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            oninvalid="this.setCustomValidity('请输入合规的电子邮件地址')"
+            oninput="this.setCustomValidity('')"
             class="form-input"
           />
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">密码:</label>
+          <label for="username" class="form-label">
+            邮箱: （建议编造）</label>
+          <input
+            v-model="username"
+            id="username"
+            type="text"
+            name="username"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            oninvalid="this.setCustomValidity('请输入合规的电子邮件地址')"
+            oninput="this.setCustomValidity('')"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">
+            密码: （如：123）</label>
           <input
             v-model="password"
             id="password"
@@ -30,7 +50,19 @@ import WelcomeItem from './WelcomeItem.vue'
           />
         </div>
         <div class="form-group">
-          <button type="submit" class="login-button">Sign Up</button>
+        <div class="form-group">
+          <label for="password" class="form-label">
+            确认密码: （如：123）</label>
+          <input
+            v-model="password"
+            id="password"
+            type="password"
+            name="password"
+            required
+            class="form-input"
+          />
+        </div>
+          <button type="submit" class="signup-button">Sign</button>
         </div>
       </form>
       <div v-if="error" class="error">{{ error }}</div>
