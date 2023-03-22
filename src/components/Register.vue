@@ -71,48 +71,6 @@ import WelcomeItem from './WelcomeItem.vue'
 </template>
 
 <script>
-import { ref } from 'vue';
-
-export default {
-  name: 'Sign Up',
-  setup() {
-    const username = ref('');
-    const password = ref('');
-    const error = ref('');
-
-    const login = async () => {
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: username.value,
-            password: password.value
-          })
-        });
-
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.error);
-        }
-
-        // Login success
-        window.location.href = '/dashboard';
-      } catch (err) {
-        error.value = err.message;
-      }
-    };
-
-    return {
-      username,
-      password,
-      error,
-      login
-    };
-  }
-};
 </script>
 
 
@@ -150,7 +108,7 @@ input[type='password'] {
   color: var(--color-text);
 }
 
-.login-button {
+.signup-button {
   width: 100%;
   padding: 0.75rem;
   border-radius: 4px;
@@ -160,7 +118,7 @@ input[type='password'] {
   transition: background-color 0.2s ease;
 }
 
-.login-button:hover {
+.signup-button:hover {
   background-color: var(--color-primary-dark);
 }
 
