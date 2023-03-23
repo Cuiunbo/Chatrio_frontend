@@ -78,6 +78,7 @@ export default {
 </script>
 
 <style>
+
 .hidden {
   display: none;
 }
@@ -207,31 +208,26 @@ textarea {
   box-shadow: 0px 0px 6px #888888;
   border-top-right-radius:5rem ;
   z-index: 1;
-  
 }
 .chat-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* box-shadow: 0 100px -100px rgba(97, 34, 34, 0.3); */
-
 }
 .chat-header {
   height: 90px;
   background-color: var(--color-border);
-  /* border: 3px #888888; */
-  /* border-bottom-style: solid; */
 }
 .chat-messages {
   flex: 1;
-
-  /* background-color: #f0f0f0; */
 }
 .message-input-container {
   height: 200px;
-  /* border: 3px #888888; */
-  /* border-top-style: solid; */
-
 }
-
+/* @media screen and (max-width: 768px) {
+  .sidebar {
+    width: 8%;
+    display: none;
+  }
+} */
 </style>
