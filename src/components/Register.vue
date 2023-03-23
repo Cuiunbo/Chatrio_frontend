@@ -79,10 +79,16 @@ import home from './Home.vue'
 
 
 <style>
-.container {
-  /* display: flex;
-  flex-wrap: wrap; */
+@media (min-width: 1024px) {
+  .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 2rem;
+  /* flex-wrap: wrap;  */
 }
+}
+  
+
 .login-form {
   background-color: var(--color-background);
   padding: 2rem;
