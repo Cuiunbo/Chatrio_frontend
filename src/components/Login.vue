@@ -4,6 +4,7 @@ import home from './Home.vue'
 </script>
 
 <template>
+  <div class="container">
   <home />
   <WelcomeItem>
     <template #heading>登录</template>
@@ -43,6 +44,7 @@ import home from './Home.vue'
       <div v-if="error" class="error">{{ error }}</div>
     </div>
   </WelcomeItem>
+  </div>
 </template>
 
 
@@ -98,6 +100,13 @@ export default {
 </script>
 
 <style>
+.container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem;
+  height: 100vh;
+}
 .login-form {
   background-color: var(--color-background);
   padding: 2rem;
@@ -149,12 +158,12 @@ input[type='password'] {
   font-size: 18px;
   margin-top: 10px;
 }
-
-@media (max-width: 600px) {
-  .form-container {
-    width: 100%;
-    padding: 0 1.5rem;
-  }
+@media (min-width: 1024px) {
+  .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 2rem;
+  /* flex-wrap: wrap;  */
 }
-
+}
 </style>
