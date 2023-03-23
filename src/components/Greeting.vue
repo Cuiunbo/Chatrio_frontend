@@ -21,10 +21,13 @@ h1 {
   font-weight: 500;
   font-size: 2.6rem;
   top: -10px;
+  margin-top: 0rem;
+  margin-bottom: 1.2rem;
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  color: gainsboro;
 }
 
 .greetings h1,

@@ -1,6 +1,7 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
 import home from './Home.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -66,8 +67,13 @@ import home from './Home.vue'
         </div>
       </form>
       <div v-if="error" class="error">{{ error }}</div>
+      <nav>
+        <RouterLink to="/">登录</RouterLink>
+        <RouterLink to="/signup">注册</RouterLink>
+      </nav>
     </div>
   </WelcomeItem>
+  
   </div>
 </template>
 

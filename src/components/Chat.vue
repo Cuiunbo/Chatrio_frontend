@@ -34,8 +34,8 @@
             @input="updateCount"
           ></textarea>
           <div class="send-container">
-            <button class="send" @click="sendMessage">发送</button>
             <div class="count">{{ count }} / {{ maxCount }}</div>
+            <button class="send" @click="sendMessage">发送</button>
           </div>  
       </div>
     </div>
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       input: '',
-      maxCount: 200, // 最大字符数
+      maxCount: 500, // 最大字符数
     };
   },
   computed: {
@@ -86,8 +86,8 @@ export default {
   float: right;
   padding: 0.75rem;
   border: none;
-  background-color: #4CAF50; /* Green */
-  color: white;
+  /* background-color: #4CAF50; */
+  color: gray;
   padding: 33px 36px;
   font-size: 20px;
   cursor: pointer;
@@ -96,15 +96,15 @@ export default {
   float: left;
   padding: 0.75rem;
   border: none;
-  background-color: #4CAF50; /* Green */
-  color: white;
+  /* background-color: #4CAF50; */
+  color: gray;
   padding: 33px 10px;
   font-size: 20px;
   cursor: pointer;
 }
 .message-input-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   background-color: #f5f5f5;
   padding-left: 1rem;
@@ -117,7 +117,10 @@ textarea {
   height: 150px;
   padding: 10px;
   margin-bottom: 0px;
-  border: 1px solid #ccc;
+  border: none;
+  background-color: var(--color-background);;
+  color: var(--color-text);
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
   resize: none;
   font-size: 16px;
@@ -125,23 +128,24 @@ textarea {
 }
 .send-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0.5rem;
+  width: 97%;
+  flex-direction: row;
+  margin: 1rem;
 }
 .count {
+  flex: 1;
   height: 0;
-  margin: 10px;
+  margin: 0px;
   margin-bottom: 0px;
   font-size: 10px;
   color: #999;
 }
 
 .send {
-  margin-top: 40px;
+  margin-top: 5px;
   padding: 8px 10px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--color-border);
+  color: green;
   border: none;
   border-radius: 5px;
   font-size: 10px;
@@ -150,7 +154,7 @@ textarea {
 }
 
 .send:hover {
-  background-color: #0062cc;
+  background-color: var(--color-border-hover);
 }
 .sidebar-content {
   flex-grow: 1;
@@ -204,7 +208,7 @@ textarea {
 }
 .sidebar {
   width: 300px;
-  background-color: var(--color-border-hover);
+  background-color: var(--color-border);
   box-shadow: 0px 0px 6px #888888;
   border-top-right-radius:5rem ;
   z-index: 1;
@@ -216,13 +220,15 @@ textarea {
 }
 .chat-header {
   height: 90px;
-  background-color: var(--color-border);
+  background-color: whitesmoke;
 }
 .chat-messages {
   flex: 1;
 }
 .message-input-container {
+  border-top: 1px solid var(--color-border);
   height: 200px;
+  background-color: var(--color-background);
 }
 /* @media screen and (max-width: 768px) {
   .sidebar {

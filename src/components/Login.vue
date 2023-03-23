@@ -1,5 +1,7 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
+import { RouterLink, RouterView } from 'vue-router'
+
 import home from './Home.vue'
 </script>
 
@@ -12,7 +14,7 @@ import home from './Home.vue'
       <form @submit.prevent="confirm" class="login-form">
         <div class="form-group">
           <label for="username" class="form-label">
-            邮箱: （建议编造）</label>
+            邮箱: </label>
           <input
             v-model="username"
             id="username"
@@ -27,7 +29,7 @@ import home from './Home.vue'
         </div>
         <div class="form-group">
           <label for="password" class="form-label">
-            密码: （如：123）</label>
+            密码: </label>
           <input
             v-model="password"
             id="password"
@@ -40,10 +42,17 @@ import home from './Home.vue'
         <div class="form-group">
           <button type="submit" class="login-button">Log In</button>
         </div>
+        
       </form>
       <div v-if="error" class="error">{{ error }}</div>
+      <nav>
+        <RouterLink to="/">登录</RouterLink>
+        <RouterLink to="/signup">注册</RouterLink>
+      </nav>
     </div>
+    
   </WelcomeItem>
+    
   </div>
 </template>
 
@@ -100,6 +109,31 @@ export default {
 </script>
 
 <style>
+
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
+}
 .container {
   flex-direction: column;
   align-items: center;
@@ -157,6 +191,11 @@ input[type='password'] {
   color: red;
   font-size: 18px;
   margin-top: 10px;
+}
+h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-heading);
 }
 @media (min-width: 1024px) {
   .container {
