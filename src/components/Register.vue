@@ -19,9 +19,6 @@ import home from './Home.vue'
             type="text"
             name="username"
             required
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            oninvalid="this.setCustomValidity('请输入合规的电子邮件地址')"
-            oninput="this.setCustomValidity('')"
             class="form-input"
           />
         </div>
@@ -78,7 +75,7 @@ import home from './Home.vue'
 </script>
 
 
-<style>
+<style scoped>
 @media (min-width: 1024px) {
   .container {
   display: grid;
@@ -87,25 +84,18 @@ import home from './Home.vue'
   /* flex-wrap: wrap;  */
 }
 }
-  
-
 .login-form {
   background-color: var(--color-background);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.login-title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--color-heading);
+  /* max-width: 512px; */
+  /* margin: 0 auto; */
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
-
 label {
   display: block;
   margin-bottom: 0.4rem;
