@@ -75,7 +75,7 @@ export default {
         try {
           // 发送登录请求
           console.log('登录中...')
-          const response = await fetch('http://localhost:5000/api/login', {
+          const response = await fetch('http://47.94.222.108:5000/api/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

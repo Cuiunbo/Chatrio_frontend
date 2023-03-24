@@ -16,6 +16,7 @@ import HelloWorld from './Greeting.vue'
 header {
   line-height: 1;
   max-height: 100vh;
+  position: center;
 }
 
 .logo {
