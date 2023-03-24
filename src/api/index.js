@@ -1,5 +1,5 @@
 // import axios from './ajax'
-
+import axios from 'axios'
 
 // export const get_goods=()=>axios.get(`/goods`)
 // export const get_banners=()=>axios.get('/banners')
@@ -10,6 +10,7 @@
 // export const delete_login=()=>axios.delete('/login')
 // export const search=(data)=>axios.get('/search',data)
 
+export const postLoginT=(data)=>axios.post('http://localhost:5000/api/login',data)
 
 /*
 * 登录接口:
