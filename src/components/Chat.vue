@@ -12,9 +12,15 @@
         </div>
       </div>
       <div class="sidebar-footer">
-          <button class="infobutton" > 个人信息
-          </button>
-      </div>
+        <button class="infobutton" @click="showUserInfo">个人信息</button>
+        </div>
+        <!-- Add a new div to show user information -->
+        <div v-if="userInfoVisible" class="user-info">
+          <p>ID: {{ userId }}</p>
+          <p>Username: {{ username }}</p>
+          <p>Token: {{ token }}</p>
+        </div>
+        <!-- ... -->
       <div class="sidebar-content">聊天列表</div>
       
     </div>    
@@ -46,6 +52,10 @@
 export default {
   data() {
     return {
+      userInfoVisible: false,
+      userId: '', // Replace with your user ID
+      username: '', // Replace with your username
+      // token: this.$cookie.get('token'),
       input: '',
       maxCount: 500, // 最大字符数
     };
@@ -53,6 +63,9 @@ export default {
   computed: {
     count() {
       return this.input.length;
+    },
+    showUserInfo() {
+      this.userInfoVisible = !this.userInfoVisible;
     },
   },
   methods: {

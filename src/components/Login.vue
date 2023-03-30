@@ -68,14 +68,11 @@ export default {
   },
   methods:{
       async confirm(){
-      //   this.$router.push('/chat').then(() => {
-      //   window.location.reload();
-      // });
-      //   this.$router.push('/chat')
         try {
           // 发送登录请求
           console.log('登录中...')
-          const response = await fetch('http://47.94.222.108:5000/api/login', {
+          const response = await fetch('http://localhost:5000/api/login', {
+          // const response = await fetch('http://47.94.222.108:5000/api/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -87,13 +84,15 @@ export default {
           })
 
           if (response.ok) {
+            // Store the token as a cookie
+            const data = await response.json();
+            //this.$cookie.set('token', data.token, { expires: 14 });
+            console.log(data.token)
             this.$router.push('/chat')
-            console.log('登录成功')
           } else {
             // 登录失败，显示错误信息
             const data = await response.json()
             this.error = data.message
-            // this.$router.replace('/signup');
           }
         } catch (error) {
           // 发送请求出错，显示错误信息

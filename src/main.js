@@ -1,11 +1,25 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import VueSocketIO from 'vue-3-socket.io';
+import VueCookies from 'vue3-cookies';
 
-import './assets/main.css'
+import App from './App.vue';
+import router from './router';
 
-const app = createApp(App)
+import socket from './socket';
 
-app.use(router)
+import './assets/main.css';
 
-app.mount('#app')
+const app = createApp(App);
+
+app.use(router);
+app.use( new VueSocketIO({
+  debug: true,
+  connection: socket,
+  // vuex: {
+  //     // store,
+  //     actionPrefix: "SOCKET_",
+  //     mutationPrefix: "SOCKET_"
+  // }
+}));
+  
+app.mount("#app");
