@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import VueSocketIO from 'vue-3-socket.io';
-import VueCookies from 'vue3-cookies';
+import VueCookies from 'vue-cookies';
 
 import App from './App.vue';
 import router from './router';
@@ -21,5 +21,9 @@ app.use( new VueSocketIO({
   //     mutationPrefix: "SOCKET_"
   // }
 }));
-  
+app.use(VueCookies,{
+  expireTimes: '7d',
+});  
+
+app.config.globalProperties.$cookies = VueCookies
 app.mount("#app");

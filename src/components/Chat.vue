@@ -14,13 +14,11 @@
       <div class="sidebar-footer">
         <button class="infobutton" @click="showUserInfo">个人信息</button>
         </div>
-        <!-- Add a new div to show user information -->
         <div v-if="userInfoVisible" class="user-info">
           <p>ID: {{ userId }}</p>
           <p>Username: {{ username }}</p>
           <p>Token: {{ token }}</p>
         </div>
-        <!-- ... -->
       <div class="sidebar-content">聊天列表</div>
       
     </div>    
@@ -30,8 +28,10 @@
         </button>
         <button class="roombutton">~</button>
       </div>
-      <div class="chat-messages">消息
-
+      <div class="chat-messages">
+        <div v-for="(message, index) in messages" :key="index">
+          {{ message }}
+        </div>
       </div>
       <div class="message-input-container">
           <textarea
@@ -55,18 +55,19 @@ export default {
       userInfoVisible: false,
       userId: '', // Replace with your user ID
       username: '', // Replace with your username
-      // token: this.$cookie.get('token'),
+      token:'',
       input: '',
       maxCount: 500, // 最大字符数
+      //TODO: 消息列表
+      // messages: {username: 'test', message: 'test'},
+      messages: [],
     };
   },
   computed: {
     count() {
       return this.input.length;
     },
-    showUserInfo() {
-      this.userInfoVisible = !this.userInfoVisible;
-    },
+    
   },
   methods: {
     updateCount(event) {
@@ -75,7 +76,12 @@ export default {
     sendMessage() {
       //TODO: 发送消息的逻辑
       console.log('发送消息:', this.input);
+      this.$socket.emit("message", this.input);
       this.input = ''; // 清空输入框
+    },
+    showUserInfo() {
+      this.userInfoVisible = !this.userInfoVisible;
+      // this.token = this.$cookies.get('token');
     },
     // sidebarhide
     sidebarhide() {
@@ -86,6 +92,11 @@ export default {
         x.style.display = "none";
       }
     },
+  },
+  sockets: {
+      message(data) {
+      this.messages.push(data);
+      },
   },
 };
 </script>

@@ -86,8 +86,9 @@ export default {
           if (response.ok) {
             // Store the token as a cookie
             const data = await response.json();
-            //this.$cookie.set('token', data.token, { expires: 14 });
-            console.log(data.token)
+            this.$cookies.set('token', data.token);
+            // console.log(data.token)
+            console.log("Set Cookies_TOKEN: "+this.$cookies.get('token'))
             this.$router.push('/chat')
           } else {
             // 登录失败，显示错误信息
