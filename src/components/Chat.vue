@@ -58,6 +58,7 @@ export default {
     return {
       userInfoVisible: false,
       username: '', // Replace with your username
+      email:'',
       token:'',
       input: '',
       maxCount: 500, // 最大字符数
@@ -89,6 +90,7 @@ export default {
   mounted() {
     this.username = this.$cookies.get('username');
     this.token = this.$cookies.get('token');
+    this.email = this.$cookies.get('email');
     this.$socket.emit("join", this.username);
   },
 

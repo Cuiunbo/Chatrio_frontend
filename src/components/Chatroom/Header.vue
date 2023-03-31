@@ -1,3 +1,8 @@
+<script setup>
+    import ChatCard from './ChatCard.vue'
+    import ProfileCard from './ProfileCard.vue'
+
+</script>
 <template>
     <el-menu
             type="primary"
@@ -32,15 +37,16 @@
         </div>
     </el-menu>
 </template>
-<script lang="ts" setup>
-    import ChatCard from './ChatCard.vue'
-    import ProfileCard from './ProfileCard.vue'
-    import {ref} from 'vue'
 
-    const activeIndex = ref('1')
-    const handleSelect = (key: string, keyPath: string[]) => {
-        console.log(key, keyPath)
-    }
+<script>
+    export default {
+        data() {
+            return {
+                nickname:'',
+                email: ''
+            };
+        },
+    };
 </script>
 
 <style>

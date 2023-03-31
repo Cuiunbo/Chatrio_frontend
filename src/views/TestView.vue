@@ -10,8 +10,8 @@
 <template>
     <div class="common-layout">
         <el-container id="container">
-            <el-header id="header">
-                <Header></Header>
+            <el-header  id="header">
+                <Header ref="ref_header"></Header>
             </el-header>
             <el-container>
                 <el-aside
@@ -20,7 +20,7 @@
                 </el-aside>
                 <el-container>
                     <el-main id="main">
-<!--                        <ProfileCard></ProfileCard>-->
+
                         <div v-for="(message, index) in messages" :key="index">
                             {{ message }}
                         </div>
@@ -42,16 +42,45 @@
         data() {
             return {
                 userInfoVisible: false,
-                userId: '', // Replace with your user ID
                 username: '', // Replace with your username
-                token:'',
-                // input: '',
+                email: '',
+                token: '',
+                input: '',
                 maxCount: 500, // 最大字符数
-                //TODO: 消息列表
-                // messages: {username: 'test', message: 'test'},
+                state: {
+                    currentUser: 'user1',
+                    currentRoom: 'room1',
+                    rooms: {
+                        'user2': {
+                            history: [
+                                {time: '03/31  14:06', message: 'this user1🍤', sender: 'user1'},
+                                {time: '03/31  14:07', message: 'that user2🧑‍🍼', sender: 'user2'}
+                            ]
+                        },
+                        'user3': {
+                            history: [
+                                {time: '1', message: '我是user1, user3你好👿', sender: 'user1'},
+                                {time: '2', message: 'user1你好, user3是我👿', sender: 'user3'}
+                            ]
+                        }
+                    }
+                },
+
+
+                currentRoom: 'user2',
                 messages: [],
             };
         },
+        mounted() {
+            this.username = this.$cookies.get('username');
+            this.token = this.$cookies.get('token');
+            this.email = this.$cookies.get('email');
+            this.$socket.emit("join", this.username);
+            this.$store.state.username=this.username;
+            this.$store.state.email=this.email;
+            // console.log(this.$store.state.email);
+        },
+
         computed: {
             count() {
                 return this.input.length;
@@ -66,7 +95,7 @@
                 //TODO: 发送消息的逻辑
                 console.log('发送消息:', this.$refs.input.textarea);
                 this.$socket.emit("message", this.$refs.input.textarea);
-                this.$refs.input.textarea= ''; // 清空输入框
+                this.$refs.input.textarea = ''; // 清空输入框
             },
             showUserInfo() {
                 this.userInfoVisible = !this.userInfoVisible;

@@ -1,32 +1,35 @@
+<script setup>
+    import Avatar1 from '../Utils/Avatar.vue'
+</script>
 <template>
-            <el-card :body-style="{ padding: '0px' }">
-                <img
-                        src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                        class="image"
-                />
-                <div @click="print" style="padding: 14px">
-                    <p>{{nickname}}</p>
-                    <div class="bottom">
-                        <p class="email">{{email}}</p>
-                    </div>
-                </div>
-            </el-card>
+    <el-card :body-style="{ padding: '0px' }">
+        <Avatar1></Avatar1>
+        <div @click="print" style="padding: 14px">
+            <p>{{ nickname }}</p>
+            <div class="bottom">
+                <p class="email">{{ email }}</p>
+            </div>
+        </div>
+    </el-card>
 </template>
 
-<script lang="ts">
-
+<script>
     export default {
-        data() {
-            return {
-                nickname: 'Username',
-                email:'default@email.com'
-            };
-        },
-        methods: {
-            print() {
-                console.log(this.nickname)
-            },
-        },
+        // data() {
+        //     return {
+        //         nickname: 'Username',
+        //         email: 'default@email.com'
+        //     };
+        // },
+        // methods: {
+        //     print() {
+        //         console.log(this.nickname);
+        //     },
+        // },
+        // created() {
+        //     this.nickname = this.$store.state.username;
+        //     this.email = this.$store.state.email;
+        // }
     };
 </script>
 
