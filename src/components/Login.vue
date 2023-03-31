@@ -72,6 +72,7 @@ export default {
           // 发送登录请求
           console.log('登录中...')
           const response = await fetch('http://localhost:5000/api/login', {
+          // const response = await fetch('http://10.1.148.246:5000/api/login', {
           // const response = await fetch('http://47.94.222.108:5000/api/login', {
             method: 'POST',
             headers: {
@@ -87,6 +88,8 @@ export default {
             // Store the token as a cookie
             const data = await response.json();
             this.$cookies.set('token', data.token);
+            this.$cookies.set('username', data.username);
+            this.$cookies.set('email', data.email);
             // console.log(data.token)
             console.log("Set Cookies_TOKEN: "+this.$cookies.get('token'))
             this.$router.push('/chat')
