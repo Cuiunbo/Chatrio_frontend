@@ -1,11 +1,15 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+    <RouterView/>
 </template>
 
-<style> 
-
+<style>
+    html, body , #app{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 </style>

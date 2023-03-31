@@ -5,11 +5,14 @@ import VueCookies from 'vue-cookies';
 import App from './App.vue';
 import router from './router';
 
+import '../src/assets/main.css'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import socket from './socket';
 
-import './assets/main.css';
+const app = createApp(App)
 
-const app = createApp(App);
+app.use(ElementPlus)
 
 app.use(router);
 app.use( new VueSocketIO({
@@ -23,7 +26,7 @@ app.use( new VueSocketIO({
 }));
 app.use(VueCookies,{
   expireTimes: '7d',
-});  
+});
 
 app.config.globalProperties.$cookies = VueCookies
 app.mount("#app");
