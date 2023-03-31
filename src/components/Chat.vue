@@ -15,11 +15,15 @@
         <button class="infobutton" @click="showUserInfo">个人信息</button>
         </div>
         <div v-if="userInfoVisible" class="user-info">
-          <p>ID: {{ userId }}</p>
           <p>Username: {{ username }}</p>
-          <p>Token: {{ token }}</p>
         </div>
-      <div class="sidebar-content">聊天列表</div>
+      <div class="sidebar-content">聊天列表
+        <div v-for="(room, roomId) in state.rooms" :key="roomId">
+          <button class="roombutton" :class="{ active: roomId === currentRoom }" @click="joinRoom(roomId)">{{ roomId }}</button>
+        </div>
+
+        
+      </div>
       
     </div>    
     <div class="chat-panel">
@@ -53,16 +57,41 @@ export default {
   data() {
     return {
       userInfoVisible: false,
-      userId: '', // Replace with your user ID
       username: '', // Replace with your username
       token:'',
       input: '',
       maxCount: 500, // 最大字符数
-      //TODO: 消息列表
-      // messages: {username: 'test', message: 'test'},
+      state: {
+        currentUser: 'user1',
+        currentRoom: 'room1',
+        rooms: {
+          'user2': {
+            history: [
+              {time: '03/31  14:06', message: 'this user1🍤', sender: 'user1'},
+              {time: '03/31  14:07', message: 'that user2🧑‍🍼', sender: 'user2'}
+            ]
+          },
+          'user3': {
+            history: [
+              {time: '1', message: '我是user1, user3你好👿', sender: 'user1'},
+              {time: '2', message: 'user1你好, user3是我👿', sender: 'user3'}
+            ]
+          }
+        }
+      },
+
+
+      currentRoom: 'user2',
       messages: [],
     };
   },
+
+  mounted() {
+    this.username = this.$cookies.get('username');
+    this.token = this.$cookies.get('token');
+    this.$socket.emit("join", this.username);
+  },
+
   computed: {
     count() {
       return this.input.length;
@@ -70,13 +99,24 @@ export default {
     
   },
   methods: {
+    joinRoom(room) {
+      this.state.currentRoom = room;
+      this.messages = this.state.rooms[room].history;
+
+    },
     updateCount(event) {
       this.input = event.target.value.slice(0, this.maxCount);
     },
     sendMessage() {
       //TODO: 发送消息的逻辑
-      console.log('发送消息:', this.input);
-      this.$socket.emit("message", this.input);
+      const message = {
+        // timestamp: new Date().getTime(),
+        time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
+        message: this.input,
+        sender: this.username,
+      };
+      console.log('发送消息:', message);
+      this.$socket.emit("message", message);
       this.input = ''; // 清空输入框
     },
     showUserInfo() {
@@ -93,12 +133,24 @@ export default {
       }
     },
   },
+  // sockets: {
+  //     message(data) {
+  //     this.messages.push(data);
+  //     },
+  // },
   sockets: {
-      message(data) {
-      this.messages.push(data);
-      },
+  message(data) {
+    const room = this.state.rooms[this.state.currentRoom];
+    if (!room.history[data.sender]) {
+      room.history[data.sender] = [];
+    }
+    room.history[data.sender].push(data);
+    this.messages.push(data);
   },
+},
 };
+
+
 </script>
 
 <style>
