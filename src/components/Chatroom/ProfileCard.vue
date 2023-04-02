@@ -15,21 +15,21 @@
 
 <script>
     export default {
-        // data() {
-        //     return {
-        //         nickname: 'Username',
-        //         email: 'default@email.com'
-        //     };
-        // },
-        // methods: {
-        //     print() {
-        //         console.log(this.nickname);
-        //     },
-        // },
-        // created() {
-        //     this.nickname = this.$store.state.username;
-        //     this.email = this.$store.state.email;
-        // }
+        data() {
+            return {
+                nickname: 'Username',
+                email: 'default@email.com'
+            };
+        },
+        methods: {
+            print() {
+                console.log(this.nickname);
+            },
+        },
+        created() {
+            this.nickname = this.$store.state.username;
+            this.email = this.$store.state.email;
+        }
     };
 </script>
 
