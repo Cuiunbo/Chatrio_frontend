@@ -134,6 +134,13 @@ export default {
       this.input = ''; // 清空输入框
     },
 
+// 获取历史消息
+//TODO: 定义一个按钮，点击后获取历史消息
+    getHistory() {
+      this.$socket.emit("get_history", this.state.currentRoom);
+    },
+
+
 // 显示 右菜单    
     showUserInfo() {
       this.userInfoVisible = !this.userInfoVisible;
@@ -168,8 +175,24 @@ export default {
 
     // 接收聊天室列表
     room_list(data) {
-      console.log('接收聊天室列表:', data);
-      this.state.rooms = data;
+      console.log('接收聊天室列表:', data[1][0]);
+      for (var i = 0; i < data.length; i++) {
+        this.state.rooms[data[i][0]] = {
+          history: [
+          {
+            time: new Date().toLocaleString('zh-CN', {
+              month: '2-digit', 
+              day: '2-digit', 
+              hour: '2-digit',
+              minute: '2-digit'
+            }),
+            content: this.username + '! Hi, 我们是好友了👿', 
+            sender: data[i][0]
+          },
+        ],
+        };
+      }
+
     },
 },
 };
