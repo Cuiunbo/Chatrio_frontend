@@ -7,7 +7,7 @@ import '../src/assets/main.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import socket from './socket';
-import store from '@/store/store'
+import index from '@/store'
 import {set_Url} from '@/assets/setting.js'
 
 const app = createApp(App)
@@ -21,7 +21,7 @@ app.use(new VueSocketIO({
     debug: true,
     connection: socket,
     // vuex: {
-    //     // store,
+    //     // index,
     //     actionPrefix: "SOCKET_",
     //     mutationPrefix: "SOCKET_"
     // }
@@ -29,6 +29,6 @@ app.use(new VueSocketIO({
 app.use(VueCookies, {
     expireTimes: '7d',
 });
-app.use(store);
+app.use(index);
 app.config.globalProperties.$cookies = VueCookies
 app.mount("#app");

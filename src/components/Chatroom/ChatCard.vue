@@ -1,29 +1,43 @@
 <template>
-        <el-card id="card" shadow="hover">
-            <el-row class="demo-avatar demo-basic">
-                <div class="demo-basic--circle">
-                    <div class="block">
-                        <el-avatar class="avatar" :shape="'square'" :size="50" :src="circleUrl"/>
-                    </div>
-                    <div class="details">
-                        <el-row class="nickname">
-                            77
-                        </el-row>
-                        <el-row class="message-detail">
-                            88
-                        </el-row>
-                    </div>
-
+    <el-card id="card" shadow="hover">
+        <el-row class="demo-avatar demo-basic">
+            <div class="demo-basic--circle">
+                <div class="block">
+                    <el-avatar class="avatar" :shape="'square'" :size="50" :src="squareUrl"/>
                 </div>
-            </el-row>
-        </el-card>
-</template>
-<script lang="ts" setup>
-    import {reactive, toRefs} from 'vue'
+                <div class="details">
+                    <el-row class="nickname">
+                        {{ roomname }}
+                    </el-row>
+                    <el-row class="message-detail">
+                        88
+                    </el-row>
+                </div>
 
+            </div>
+        </el-row>
+    </el-card>
+</template>
+<script lang="ts">
+    import {defineProps, reactive, toRefs} from 'vue'
+
+    export default {
+        props: ['count'],
+        data() {
+            return {
+                roomname: '',
+                // idList: [],
+                // nameList: [],
+            }
+        },
+        created() {
+            console.log(this.$store.state.nameList[this.count]);
+
+            this.roomname = this.$store.state.nameList[this.count];
+            console.log(this.count);
+        }
+    }
     const state = reactive({
-        circleUrl:
-            'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
         squareUrl:
             'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
         sizeList: ['small', '', 'large'] as const,
@@ -33,9 +47,10 @@
 </script>
 
 <style scoped>
-    #card{
+    #card {
         height: 90px;
     }
+
     .demo-basic {
         text-align: center;
     }

@@ -5,12 +5,14 @@
     import ChatList from '../components/Chatroom/ChatList.vue'
     import ProfileCard from '../components/Chatroom/ProfileCard.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
+    import {set_Url} from '@/assets/setting';
+
 </script>
 
 <template>
     <div class="common-layout">
         <el-container id="container">
-            <el-header  id="header">
+            <el-header id="header">
                 <Header ref="ref_header"></Header>
             </el-header>
             <el-container>
@@ -31,10 +33,10 @@
                 </el-container>
             </el-container>
         </el-container>
-        <el-button id="send-button" @click="sendMessage"
-        >Send
-        </el-button>
     </div>
+    <el-button id="send-button" @click="sendMessage"
+    >Send
+    </el-button>
 </template>
 
 <script>
@@ -47,9 +49,12 @@
                 token: '',
                 input: '',
                 maxCount: 500, // 最大字符数
+
+                currentRoom: 'user2',
+                messages: [],
                 state: {
                     currentUser: 'user1',
-                    currentRoom: 'room1',
+                    currentRoom: 'user2',
                     rooms: {
                         'user2': {
                             history: [
@@ -66,54 +71,79 @@
                     }
                 },
 
-
-                currentRoom: 'user2',
-                messages: [],
             };
         },
-        mounted() {
+        created() {
             this.username = this.$cookies.get('username');
             this.token = this.$cookies.get('token');
             this.email = this.$cookies.get('email');
-            this.$socket.emit("join", this.username);
-            this.$store.state.username=this.username;
-            this.$store.state.email=this.email;
-            // console.log(this.$store.state.email);
+            this.userid = this.$cookies.get('userid');
+            this.$store.state.username = this.username;
+            this.$store.state.email = this.email;
+            console.log(1);
+            this.$socket.emit("get_room_list", this.userid);
+            console.log(1);
+
         },
 
         computed: {
-            count() {
-                return this.input.length;
-            },
+            // count() {
+            //     return this.input.length;
+            // },
 
         },
         methods: {
-            updateCount(event) {
-                this.input = event.target.value.slice(0, this.maxCount);
+            // // 刷新字数
+            // updateCount(event) {
+            //     this.input = event.target.value.slice(0, this.maxCount);
+            // },
+            // 切换聊天室
+            joinRoom(room) {
+                this.state.currentRoom = room;
+                this.messages = this.state.rooms[room].history;
             },
+            // 发送消息
             sendMessage() {
-                //TODO: 发送消息的逻辑
-                console.log('发送消息:', this.$refs.input.textarea);
-                this.$socket.emit("message", this.$refs.input.textarea);
-                this.$refs.input.textarea = ''; // 清空输入框
-            },
-            showUserInfo() {
-                this.userInfoVisible = !this.userInfoVisible;
-                // this.token = this.$cookies.get('token');
-            },
-            // sidebarhide
-            sidebarhide() {
-                var x = document.getElementById("sidebar");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
+                const message = {
+                    content: {
+                        time: new Date().toLocaleString('zh-CN', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }),
+                        content: this.input,
+                        sender: this.username,
+                    },
+                    roomId: this.state.currentRoom,
+                };
+                console.log('发送消息:', message);
+                this.$socket.emit("message", message);
+                this.input = ''; // 清空输入框
             },
         },
         sockets: {
+            // 接收消息
             message(data) {
-                this.messages.push(data);
+                if (!this.state.rooms[data.roomId]) {
+                    this.state.rooms[data.roomId] = {
+                        history: [],
+                    };
+                }
+                const room = this.state.rooms[data.roomId];
+                if (!room.history[data.sender]) {
+                    room.history[data.sender] = [];
+                }
+                room.history[data.sender].push(data['content']);
+                this.messages.push(data['content']);
+            },
+
+            // 接收聊天室列表
+            room_list(data) {
+                console.log('接收聊天室列表:', data);
+                console.log(data[0]);
+                this.state.rooms = data;
+
             },
         },
     };
@@ -141,7 +171,7 @@
 
     #aside {
         background: #f2f2f2;
-        height: 93vh;
+        height: 92vh;
         padding: 5px;
         width: 300px;
         overflow-x: hidden;

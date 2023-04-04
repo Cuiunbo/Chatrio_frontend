@@ -22,11 +22,8 @@
             };
         },
         methods: {
-            print() {
-                console.log(this.nickname);
-            },
         },
-        created() {
+        mounted() {
             this.nickname = this.$store.state.username;
             this.email = this.$store.state.email;
         }

@@ -92,7 +92,7 @@ export default {
             this.$cookies.set('token', data.token);
             this.$cookies.set('username', data.username);
             this.$cookies.set('email', data.email);
-            // console.log(data.token)
+            this.$cookies.set('userid', data.userid);
             console.log("Set Cookies_TOKEN: "+this.$cookies.get('token'))
             this.$router.push('/chat')
           } else {
