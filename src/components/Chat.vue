@@ -62,25 +62,26 @@ export default {
       token:'',
       input: '',
       maxCount: 500, // 最大字符数
+      // 内存表
       state: {
-        currentUser: 'user1',
-        currentRoom: 'user2',
+        currentUser: '',
+        currentRoom: '',
         rooms: {
           'user2': {
             history: [
-              {time: '03/31  14:06', message: 'this user1🍤', sender: 'user1'},
-              {time: '03/31  14:07', message: 'that user2🧑‍🍼', sender: 'user2'}
+              {time: '03/31  14:06', content: 'this user1🍤', sender: 'user1'},
+              {time: '03/31  14:07', content: 'that user2🧑‍🍼', sender: 'user2'}
             ]
           },
           'user3': {
             history: [
-              {time: '1', message: '我是user1, user3你好👿', sender: 'user1'},
-              {time: '2', message: 'user1你好, user3是我👿', sender: 'user3'}
+              {time: '03/31  14:07', content: '我是user1, user3你好👿', sender: 'user1'},
+              {time: '03/31  14:17', content: 'user1你好, user3是我👿', sender: 'user3'}
             ]
           }
         }
       },
-      // currentRoom: 'user2',
+      // 当前聊天室的消息表
       messages: [],
     };
   },
@@ -89,7 +90,10 @@ export default {
     this.username = this.$cookies.get('username');
     this.token = this.$cookies.get('token');
     this.email = this.$cookies.get('email');
+    this.state.currentUser = this.username;
     // this.$socket.emit("join", this.username);
+    // 初始化聊天室列表
+    this.$socket.emit("get_room_list", this.token);
   },
 
   computed: {
@@ -99,31 +103,43 @@ export default {
     
   },
   methods: {
+// 切换聊天室
     joinRoom(room) {
       this.state.currentRoom = room;
       this.messages = this.state.rooms[room].history;
-
     },
+
+// 消息框字数限制
     updateCount(event) {
       this.input = event.target.value.slice(0, this.maxCount);
     },
+
+// 发送消息
     sendMessage() {
-      //TODO: 发送消息的逻辑
       const message = {
-        // timestamp: new Date().getTime(),
-        time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
-        message: this.input,
-        sender: this.username,
+        content :{
+          time: new Date().toLocaleString('zh-CN', {
+          month: '2-digit', 
+          day: '2-digit', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        }),
+          content: this.input,
+          sender: this.username,
+        },
+        roomId : this.state.currentRoom,
       };
       console.log('发送消息:', message);
       this.$socket.emit("message", message);
       this.input = ''; // 清空输入框
     },
+
+// 显示 右菜单    
     showUserInfo() {
       this.userInfoVisible = !this.userInfoVisible;
-      // this.token = this.$cookies.get('token');
     },
-    // sidebarhide
+
+// 侧边栏隐藏
     sidebarhide() {
       var x = document.getElementById("sidebar");
       if (x.style.display === "none") {
@@ -133,19 +149,27 @@ export default {
       }
     },
   },
-  // sockets: {
-  //     message(data) {
-  //     this.messages.push(data);
-  //     },
-  // },
+
   sockets: {
+    // 接收消息
     message(data) {
-      const room = this.state.rooms[this.state.currentRoom];
+      if (!this.state.rooms[data.roomId]) {
+        this.state.rooms[data.roomId] = {
+          history: [],
+        };
+      }
+      const room = this.state.rooms[data.roomId];  
       if (!room.history[data.sender]) {
         room.history[data.sender] = [];
       }
-      room.history[data.sender].push(data);
-      this.messages.push(data);
+      room.history[data.sender].push(data['content']);
+      this.messages.push(data['content']);
+    },
+
+    // 接收聊天室列表
+    room_list(data) {
+      console.log('接收聊天室列表:', data);
+      this.state.rooms = data;
     },
 },
 };
