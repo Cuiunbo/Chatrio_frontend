@@ -19,7 +19,7 @@
         </div>
       <div class="sidebar-content">聊天列表
         <div v-for="(room, roomId) in state.rooms" :key="roomId">
-          <button class="roombutton" :class="{ active: roomId === currentRoom }" @click="joinRoom(roomId)">{{ roomId }}</button>
+          <button class="roombutton" :class="{ active: roomId === state.currentRoom }" @click="joinRoom(roomId)">{{ roomId }}</button>
         </div>
 
         
@@ -64,7 +64,7 @@ export default {
       maxCount: 500, // 最大字符数
       state: {
         currentUser: 'user1',
-        currentRoom: 'room1',
+        currentRoom: 'user2',
         rooms: {
           'user2': {
             history: [
@@ -80,9 +80,7 @@ export default {
           }
         }
       },
-
-
-      currentRoom: 'user2',
+      // currentRoom: 'user2',
       messages: [],
     };
   },
@@ -91,7 +89,7 @@ export default {
     this.username = this.$cookies.get('username');
     this.token = this.$cookies.get('token');
     this.email = this.$cookies.get('email');
-    this.$socket.emit("join", this.username);
+    // this.$socket.emit("join", this.username);
   },
 
   computed: {
@@ -141,14 +139,14 @@ export default {
   //     },
   // },
   sockets: {
-  message(data) {
-    const room = this.state.rooms[this.state.currentRoom];
-    if (!room.history[data.sender]) {
-      room.history[data.sender] = [];
-    }
-    room.history[data.sender].push(data);
-    this.messages.push(data);
-  },
+    message(data) {
+      const room = this.state.rooms[this.state.currentRoom];
+      if (!room.history[data.sender]) {
+        room.history[data.sender] = [];
+      }
+      room.history[data.sender].push(data);
+      this.messages.push(data);
+    },
 },
 };
 

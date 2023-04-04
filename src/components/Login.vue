@@ -1,6 +1,7 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
 import { RouterLink} from 'vue-router'
+import { set_Url } from '@/assets/setting';
 
 import home from './Home.vue'
 </script>
@@ -71,7 +72,8 @@ export default {
         try {
           // 发送登录请求
           console.log('登录中...')
-          const response = await fetch('http://localhost:5000/api/login', {
+          // const response = await fetch('http://localhost:5000/api/login', {
+          const response = await fetch(set_Url+'/api/login', {
           // const response = await fetch('http://10.1.148.246:5000/api/login', {
           // const response = await fetch('http://47.94.222.108:5000/api/login', {
             method: 'POST',

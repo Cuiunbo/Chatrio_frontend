@@ -8,8 +8,10 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import socket from './socket';
 import store from '@/store/store'
+import {set_Url} from '@/assets/setting.js'
 
 const app = createApp(App)
+app.config.globalProperties.$set_Url = set_Url;
 
 
 

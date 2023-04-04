@@ -4,6 +4,8 @@
     import Input from '../components/Chatroom/Input.vue'
     import ChatList from '../components/Chatroom/ChatList.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
+    import { set_Url } from '@/assets/setting';
+
 </script>
 
 <template>
@@ -46,6 +48,25 @@
                 //TODO: 消息列表
                 // messages: {username: 'test', message: 'test'},
                 messages: [],
+                state: {
+                    currentUser: 'user1',
+                    currentRoom: 'user2',
+                    rooms: {
+                    'user2': {
+                        history: [
+                        {time: '03/31  14:06', message: 'this user1🍤', sender: 'user1'},
+                        {time: '03/31  14:07', message: 'that user2🧑‍🍼', sender: 'user2'}
+                        ]
+                    },
+                    'user3': {
+                        history: [
+                        {time: '1', message: '我是user1, user3你好👿', sender: 'user1'},
+                        {time: '2', message: 'user1你好, user3是我👿', sender: 'user3'}
+                        ]
+                    }
+                    }
+                },
+
             };
         },
         computed: {
