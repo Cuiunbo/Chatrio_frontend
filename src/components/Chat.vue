@@ -68,17 +68,19 @@ export default {
         currentUser: '',
         currentRoom: '',
         rooms: {
-          'user2': {
+          '2': {
             history: [
               {time: '03/31  14:06', content: 'this user1🍤', sender: 'user1'},
               {time: '03/31  14:07', content: 'that user2🧑‍🍼', sender: 'user2'}
-            ]
+            ],
+            room_name: 'user2'
           },
-          'user3': {
+          '3': {
             history: [
               {time: '03/31  14:07', content: '我是user1, user3你好👿', sender: 'user1'},
               {time: '03/31  14:17', content: 'user1你好, user3是我👿', sender: 'user3'}
-            ]
+            ],
+            room_name: 'user3'
           }
         }
       },

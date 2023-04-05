@@ -6,6 +6,7 @@
     import ProfileCard from '../components/Chatroom/ProfileCard.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
     import {set_Url} from '@/assets/setting';
+import { keys } from 'lodash'
 
 </script>
 
@@ -125,25 +126,30 @@
             // 接收聊天室列表
             room_list(data) {
                 console.log('接收聊天室列表:', data);
-                console.log(data[0]);
-                for (let i = 0; i < data.length; i++) {
-                    this.$store.state.rooms[i] = {
-                        id: data[i][0],
-                        name: data[i][1],
-                        members: data[i][2],
+                for (const room in data) {
+                    // console.log(data[room].room_name);
+                    // console.log(room)
+                    this.$store.state.rooms[data[room].room_name] ={
                         history: [
-                            {
-                                time: new Date().toLocaleString('zh-CN', {
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                }),
-                                content: this.username + '! Hi, 我们是好友了👿',
-                                sender: data[i][0]
+                        {
+                            time: new Date().toLocaleString('zh-CN', {
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }),
+                            content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                            sender: data[room].room_name
                             },
                         ],
-                    };
+                        roomId: room, 
+                        roomName: data[room].room_name, // 冗余
+                        num: data[room].num_members,
+                        //TODO: 未实现的群显示用户功能
+                        // roomType: data[room].room_type,
+                        // roomMembers: data[room].room_members,
+                        // membersNum: data[room].room_members.length,
+                    }
                 }
                 console.log(this.$store.state.rooms);
             },
