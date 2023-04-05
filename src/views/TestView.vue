@@ -23,9 +23,9 @@
                 <el-container>
                     <el-main id="main">
 
-                        <div v-for="(message, index) in messages" :key="index">
-                            {{ message }}
-                        </div>
+<!--                        <div v-for="(message, index) in messages" :key="index">-->
+<!--                            {{ message }}-->
+<!--                        </div>-->
                     </el-main>
                     <el-footer id="footer">
                         <Input ref="input"></Input>
@@ -55,20 +55,6 @@
                 state: {
                     currentUser: 'user1',
                     currentRoom: 'user2',
-                    rooms: {
-                        'user2': {
-                            history: [
-                                {time: '03/31  14:06', message: 'this user1🍤', sender: 'user1'},
-                                {time: '03/31  14:07', message: 'that user2🧑‍🍼', sender: 'user2'}
-                            ]
-                        },
-                        'user3': {
-                            history: [
-                                {time: '1', message: '我是user1, user3你好👿', sender: 'user1'},
-                                {time: '2', message: 'user1你好, user3是我👿', sender: 'user3'}
-                            ]
-                        }
-                    }
                 },
 
             };
@@ -80,9 +66,7 @@
             this.userid = this.$cookies.get('userid');
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
-            console.log(1);
             this.$socket.emit("get_room_list", this.userid);
-            console.log(1);
 
         },
 
@@ -99,7 +83,7 @@
             // },
             // 切换聊天室
             joinRoom(room) {
-                this.state.currentRoom = room;
+                this.$store.state.currentRoom = room;
                 this.messages = this.state.rooms[room].history;
             },
             // 发送消息
@@ -142,8 +126,26 @@
             room_list(data) {
                 console.log('接收聊天室列表:', data);
                 console.log(data[0]);
-                this.state.rooms = data;
-
+                for (let i = 0; i < data.length; i++) {
+                    this.$store.state.rooms[i] = {
+                        id: data[i][0],
+                        name: data[i][1],
+                        members: data[i][2],
+                        history: [
+                            {
+                                time: new Date().toLocaleString('zh-CN', {
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }),
+                                content: this.username + '! Hi, 我们是好友了👿',
+                                sender: data[i][0]
+                            },
+                        ],
+                    };
+                }
+                console.log(this.$store.state.rooms);
             },
         },
     };

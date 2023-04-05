@@ -20,21 +20,22 @@
 </template>
 <script lang="ts">
     import {defineProps, reactive, toRefs} from 'vue'
+    import {countdownEmits} from "element-plus";
 
     export default {
         props: ['count'],
         data() {
             return {
+                id: 0,
                 roomname: '',
-                // idList: [],
-                // nameList: [],
+                members: 2,
             }
         },
         created() {
-            console.log(this.$store.state.nameList[this.count]);
-
-            this.roomname = this.$store.state.nameList[this.count];
-            console.log(this.count);
+            console.log(this.$store.state.rooms[this.count - 1]);
+            this.id = this.$store.state.rooms[this.count - 1].id;
+            this.roomname = this.$store.state.rooms[this.count - 1].name;
+            this.members = this.$store.state.rooms[this.count - 1].members;
         }
     }
     const state = reactive({

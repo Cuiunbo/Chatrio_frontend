@@ -1,6 +1,9 @@
 <template>
     <el-scrollbar>
-        <ChatCard v-for="index in this.listCount" count="index" class="scrollbar-demo-item">{{ item }}</ChatCard>
+        <ChatCard v-for="count1 in this.length" :count="count1"
+                  class="scrollbar-demo-item"
+                  @click="joinRoom(count1)"
+        ></ChatCard>
     </el-scrollbar>
 </template>
 
@@ -13,13 +16,18 @@
         },
         data() {
             return {
-                listCount: 0,
-                idList: [],
-                nameList: [],
+                length:0,
             }
         },
         created() {
-            this.listCount = this.$store.state.idList.length;
+            this.length=this.$store.state.rooms.length;
+        },
+        methods:{
+            // 切换聊天室
+            joinRoom(room) {
+                this.$store.state.currentRoom = room-1;
+                // this.messages = this.state.rooms[room].history;
+            },
         }
     }
 </script>

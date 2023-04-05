@@ -1,11 +1,13 @@
 import {createStore} from 'vuex'
 
 const index = createStore({
-    state(){
+    state() {
         return {
-            username:'Username',
-            email:'example@email.com',
-            chatroom:[],
+            username: 'Username',
+            email: 'example@email.com',
+            currentRoom: 0,
+            rooms: [],
+            chatroom: [],
         }
     }
 })

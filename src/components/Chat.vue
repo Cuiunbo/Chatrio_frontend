@@ -58,6 +58,7 @@ export default {
     return {
       userInfoVisible: false,
       username: '', // Replace with your username
+      userid:0,
       email:'',
       token:'',
       input: '',
@@ -90,10 +91,11 @@ export default {
     this.username = this.$cookies.get('username');
     this.token = this.$cookies.get('token');
     this.email = this.$cookies.get('email');
+    this.userid = this.$cookies.get('userid');
     this.state.currentUser = this.username;
     // this.$socket.emit("join", this.username);
     // 初始化聊天室列表
-    this.$socket.emit("get_room_list", this.token);
+    this.$socket.emit("get_room_list", this.userid);
   },
 
   computed: {
@@ -176,19 +178,19 @@ export default {
 
     // 接收聊天室列表
     room_list(data) {
-      console.log('接收聊天室列表:', data[1][0]);
+      console.log('接收聊天室列表:', data);
       for (var i = 0; i < data.length; i++) {
         this.state.rooms[data[i][0]] = {
           history: [
           {
-            time: new Date().toLocaleString('zh-CN', {
-              month: '2-digit', 
-              day: '2-digit', 
-              hour: '2-digit',
-              minute: '2-digit'
-            }),
-            content: this.username + '! Hi, 我们是好友了👿', 
-            sender: data[i][0]
+            // time: new Date().toLocaleString('zh-CN', {
+            //   month: '2-digit',
+            //   day: '2-digit',
+            //   hour: '2-digit',
+            //   minute: '2-digit'
+            // }),
+            // content: this.username + '! Hi, 我们是好友了👿',
+            // sender: data[i][0]
           },
         ],
         };
