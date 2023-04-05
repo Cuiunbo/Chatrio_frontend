@@ -149,39 +149,42 @@ import { keys } from 'lodash'
                 //         // roomType: data[room].room_type,
                 //         // roomMembers: data[room].room_members,
                 //         // membersNum: data[room].room_members.length,
+                //         // roomAvatar: data[room].room_avatar,
                 //     }
                 // }
-                this.$store.state.rooms=[];
                 for (const room in data) {
-                    const roomId = data[room][0];
-                    const roomName = data[room][1];
-                    const roomMember = data[room][2];
-                    const index = parseInt(room);
+                    const roomName = data[room].room_name;
+                    const roomId = parseInt(room);
+                    // 判断这个房间是否已经存在于数组中
+                    const existingRoom = this.$store.state.rooms.find((room) => room.roomId === roomId);
+                    if (existingRoom) {
+                    continue;
+                    }
                     const newRoom = {
                         history: [
-                            {
-                                time: new Date().toLocaleString('zh-CN', {
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                }),
-                                content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                                sender: roomName
-                            },
+                        {
+                            time: new Date().toLocaleString('zh-CN', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                            }),
+                            content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                            sender: roomName
+                        },
                         ],
-                        index: index,
                         roomId: roomId,
                         roomName: roomName,
-                        memberNum: roomMember,
+                        members_num: data[room].num_members,
                     };
                     this.$store.state.rooms.push(newRoom);
-                    // this.$store.state.roomsindex[roomName] = this.$store.state.rooms.length - 1;
+                    this.$store.state.roomsindex['roomName'][roomName] = this.$store.state.rooms.length - 1;
+                    this.$store.state.roomsindex['roomId'][roomId] = this.$store.state.rooms.length - 1;
                 }
 
                 console.log(this.$store.state);
-                //const roomId = this.$store.state.roomsindex.roomId;
-                //TODO:this.$socket.emit("get_all_history", roomId);
+                const roomId = this.$store.state.roomsindex.roomId;
+                this.$socket.emit("get_all_history", roomId);
             },
             
             room_history(data) {
