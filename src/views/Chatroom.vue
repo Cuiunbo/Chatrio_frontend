@@ -67,6 +67,7 @@
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
             this.$socket.emit("get_room_list", this.userid);
+            this.$socket.emit("get_all_history", this.userid);
 
         },
 
