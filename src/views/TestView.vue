@@ -126,32 +126,56 @@ import { keys } from 'lodash'
             // 接收聊天室列表
             room_list(data) {
                 console.log('接收聊天室列表:', data);
+                // for (const room in data) {
+                //     // console.log(data[room].room_name);
+                //     // console.log(room)
+                //     this.$store.state.rooms[data[room].room_name] ={
+                //         history: [
+                //         {
+                //             time: new Date().toLocaleString('zh-CN', {
+                //                 month: '2-digit',
+                //                 day: '2-digit',
+                //                 hour: '2-digit',
+                //                 minute: '2-digit'
+                //             }),
+                //             content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                //             sender: data[room].room_name
+                //             },
+                //         ],
+                //         roomId: room, 
+                //         roomName: data[room].room_name, // 冗余
+                //         num: data[room].num_members,
+                //         //TODO: 未实现的群显示用户功能
+                //         // roomType: data[room].room_type,
+                //         // roomMembers: data[room].room_members,
+                //         // membersNum: data[room].room_members.length,
+                //     }
+                // }
                 for (const room in data) {
-                    // console.log(data[room].room_name);
-                    // console.log(room)
-                    this.$store.state.rooms[data[room].room_name] ={
+                    const roomName = data[room].room_name;
+                    const roomId = parseInt(room);
+                    const newRoom = {
                         history: [
                         {
                             time: new Date().toLocaleString('zh-CN', {
-                                month: '2-digit',
-                                day: '2-digit',
-                                hour: '2-digit',
-                                minute: '2-digit'
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
                             }),
                             content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                            sender: data[room].room_name
-                            },
+                            sender: roomName
+                        },
                         ],
-                        roomId: room, 
-                        roomName: data[room].room_name, // 冗余
+                        roomId: roomId,
+                        roomName: roomName,
                         num: data[room].num_members,
-                        //TODO: 未实现的群显示用户功能
-                        // roomType: data[room].room_type,
-                        // roomMembers: data[room].room_members,
-                        // membersNum: data[room].room_members.length,
-                    }
+                    };
+                    this.$store.state.rooms.push(newRoom);
+                    this.$store.state.roomsindex[roomName] = this.$store.state.rooms.length - 1;
                 }
-                console.log(this.$store.state.rooms);
+
+                console.log(this.$store.state);
             },
         },
     };
