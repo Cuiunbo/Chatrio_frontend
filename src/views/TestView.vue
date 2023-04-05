@@ -169,6 +169,17 @@ import { keys } from 'lodash'
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
             },
+            
+            room_history(data) {
+                console.log('接收聊天室历史消息:', data);
+                for (const room in data) {
+                    const roomId = parseInt(room);
+                    const existingRoom = this.$store.state.rooms.find((room) => room.roomId === roomId);
+                    if (existingRoom) {
+                        existingRoom.history = data[room];
+                    }
+                }
+            },
         },
     };
 </script>
