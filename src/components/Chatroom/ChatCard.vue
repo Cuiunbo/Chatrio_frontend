@@ -31,13 +31,13 @@
                 members: 2,
             }
         },
-        created() {
+        mounted() {
             const room_info=this.$store.state.rooms[this.count - 1];
-            console.log(room_info);
+            console.log(this.$store.state);
             this.id = room_info.id;
             this.roomname = room_info['roomName'];
             this.members = room_info.members;
-            console.log(this.roomname);
+            // console.log(this.roomname);
         }
     }
     const state = reactive({

@@ -39,7 +39,6 @@ import home from './Home.vue'
             required
             class="form-input"
           />
-          <el-input></el-input>
         </div>
         <div class="form-group">
           <button type="submit" class="login-button">Log In</button>

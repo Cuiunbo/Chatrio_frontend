@@ -6,7 +6,7 @@
     import ProfileCard from '../components/Chatroom/ProfileCard.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
     import {set_Url} from '@/assets/setting';
-import { keys } from 'lodash'
+    import {keys} from 'lodash'
 
 </script>
 
@@ -19,14 +19,14 @@ import { keys } from 'lodash'
             <el-container>
                 <el-aside
                         id="aside">
-                    <ChatList></ChatList>
+                    <ChatList v-if="render"></ChatList>
                 </el-aside>
                 <el-container>
                     <el-main id="main">
 
-<!--                        <div v-for="(message, index) in messages" :key="index">-->
-<!--                            {{ message }}-->
-<!--                        </div>-->
+                        <!--                        <div v-for="(message, index) in messages" :key="index">-->
+                        <!--                            {{ message }}-->
+                        <!--                        </div>-->
                     </el-main>
                     <el-footer id="footer">
                         <Input ref="input"></Input>
@@ -50,7 +50,7 @@ import { keys } from 'lodash'
                 token: '',
                 input: '',
                 maxCount: 500, // 最大字符数
-
+                render: false,
                 currentRoom: 'user2',
                 messages: [],
                 state: {
@@ -67,6 +67,7 @@ import { keys } from 'lodash'
             this.userid = this.$cookies.get('userid');
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
+            console.log(1);
             this.$socket.emit("get_room_list", this.userid);
 
         },
@@ -125,6 +126,7 @@ import { keys } from 'lodash'
 
             // 接收聊天室列表
             room_list(data) {
+                console.log(this.$store.state);
                 console.log('接收聊天室列表:', data);
                 // for (const room in data) {
                 //     // console.log(data[room].room_name);
@@ -152,26 +154,27 @@ import { keys } from 'lodash'
                 //         // roomAvatar: data[room].room_avatar,
                 //     }
                 // }
+                this.$store.state.rooms = [];
                 for (const room in data) {
                     const roomName = data[room].room_name;
                     const roomId = parseInt(room);
                     // 判断这个房间是否已经存在于数组中
                     const existingRoom = this.$store.state.rooms.find((room) => room.roomId === roomId);
                     if (existingRoom) {
-                    continue;
+                        continue;
                     }
                     const newRoom = {
                         history: [
-                        {
-                            time: new Date().toLocaleString('zh-CN', {
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                            }),
-                            content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                            sender: roomName
-                        },
+                            {
+                                time: new Date().toLocaleString('zh-CN', {
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }),
+                                content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                                sender: roomName
+                            },
                         ],
                         roomId: roomId,
                         roomName: roomName,
@@ -181,12 +184,13 @@ import { keys } from 'lodash'
                     this.$store.state.roomsindex['roomName'][roomName] = this.$store.state.rooms.length - 1;
                     this.$store.state.roomsindex['roomId'][roomId] = this.$store.state.rooms.length - 1;
                 }
+                this.render = true;
 
                 console.log(this.$store.state);
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
             },
-            
+
             room_history(data) {
                 console.log('接收聊天室历史消息:', data);
                 for (const room in data) {

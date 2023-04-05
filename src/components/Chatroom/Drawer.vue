@@ -7,20 +7,22 @@
             title="New Contacts"
             direction="rtl"
             class="demo-drawer"
+            size="350"
     >
         <div class="demo-drawer__content">
             <el-form :model="form">
-                <el-form-item label="Name" :label-width="formLabelWidth">
-                    <el-input class="in" v-model="form.name" autocomplete="off" />
+                <el-form-item>
+                    <div style="flex: 1"></div>
+                    <el-radio-group v-model="radio1" class="ml-4">
+                        <el-radio label="1">Option 1</el-radio>
+                        <el-radio label="2">Option 2</el-radio>
+                    </el-radio-group>
+                    <div style="flex: 1"></div>
                 </el-form-item>
-                <el-form-item label="Area" :label-width="formLabelWidth">
-                    <el-select
-                            v-model="form.region"
-                            placeholder="Please select activity area"
-                    >
-                        <el-option label="Area1" value="shanghai" />
-                        <el-option label="Area2" value="beijing" />
-                    </el-select>
+                <el-form-item label="ID">
+<!--                    <div style="flex: 1"></div>-->
+                    <el-input class="in" v-model="form.name" autocomplete="off" />
+<!--                    <div style="flex: 1"></div>-->
                 </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
@@ -91,11 +93,8 @@
 </script>
 
 <style >
-    .in {
-        :deep(.el-input__wrapper) {
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            background: rgba(0, 0, 0, 0.1);
-        }
+    .in{
+       /*width: 200px;*/
     }
 
 </style>
