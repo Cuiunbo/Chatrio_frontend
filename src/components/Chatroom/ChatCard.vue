@@ -32,10 +32,12 @@
             }
         },
         created() {
-            console.log(this.$store.state.rooms[this.count - 1]);
-            this.id = this.$store.state.rooms[this.count - 1].id;
-            this.roomname = this.$store.state.rooms[this.count - 1].name;
-            this.members = this.$store.state.rooms[this.count - 1].members;
+            const room_info=this.$store.state.rooms[this.count - 1];
+            console.log(room_info);
+            this.id = room_info.id;
+            this.roomname = room_info['roomName'];
+            this.members = room_info.members;
+            console.log(this.roomname);
         }
     }
     const state = reactive({

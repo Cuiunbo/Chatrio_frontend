@@ -1,6 +1,7 @@
 <script setup>
     import ChatCard from './ChatCard.vue'
     import ProfileCard from './ProfileCard.vue'
+    import Drawer from './Drawer.vue'
 
 </script>
 <template>
@@ -17,20 +18,12 @@
             <img alt="Vue logo" class="logo" src="@/assets/pinialogo.svg" width="40" height="40"/>
         </el-menu-item>
         <div class="flex-grow"/>
-        <!--        <el-menu-item index="1">Processing Center</el-menu-item>-->
+        <el-menu-item index="1">
+            <Drawer></Drawer>
+        </el-menu-item>
         <el-sub-menu index="2">
             <template #title>Profile</template>
-<!--            <ChatCard></ChatCard>-->
                 <ProfileCard id="profile"></ProfileCard>
-            <!--            <el-menu-item index="2-1"><ChatCard></ChatCard></el-menu-item>-->
-            <!--            <el-menu-item index="2-2">item two</el-menu-item>-->
-            <!--            <el-menu-item index="2-3">item three</el-menu-item>-->
-            <!--            <el-sub-menu index="2-4">-->
-            <!--                <template #title>item four</template>-->
-            <!--                <el-menu-item index="2-4-1">item one</el-menu-item>-->
-            <!--                <el-menu-item index="2-4-2">item two</el-menu-item>-->
-            <!--                <el-menu-item index="2-4-3">item three</el-menu-item>-->
-            <!--            </el-sub-menu>-->
         </el-sub-menu>
         <div id="chatrio">
             Chatrio
