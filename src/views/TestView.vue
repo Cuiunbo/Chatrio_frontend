@@ -6,8 +6,8 @@
     import ProfileCard from '../components/Chatroom/ProfileCard.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
     import {set_Url} from '@/assets/setting';
-import { keys } from 'lodash'
-
+    import {keys} from 'lodash'
+    import Drawer from '../components/Chatroom/Drawer.vue'
 </script>
 
 <template>
@@ -24,9 +24,9 @@ import { keys } from 'lodash'
                 <el-container>
                     <el-main id="main">
 
-<!--                        <div v-for="(message, index) in messages" :key="index">-->
-<!--                            {{ message }}-->
-<!--                        </div>-->
+                        <!--                        <div v-for="(message, index) in messages" :key="index">-->
+                        <!--                            {{ message }}-->
+                        <!--                        </div>-->
                     </el-main>
                     <el-footer id="footer">
                         <Input ref="input"></Input>
@@ -38,6 +38,8 @@ import { keys } from 'lodash'
     <el-button id="send-button" @click="sendMessage"
     >Send
     </el-button>
+    <Drawer></Drawer>
+
 </template>
 
 <script>
@@ -151,28 +153,32 @@ import { keys } from 'lodash'
                 //         // membersNum: data[room].room_members.length,
                 //     }
                 // }
+                this.$store.state.rooms=[];
                 for (const room in data) {
-                    const roomName = data[room].room_name;
-                    const roomId = parseInt(room);
+                    const roomId = data[room][0];
+                    const roomName = data[room][1];
+                    const roomMember = data[room][2];
+                    const index = parseInt(room);
                     const newRoom = {
                         history: [
-                        {
-                            time: new Date().toLocaleString('zh-CN', {
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                            }),
-                            content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                            sender: roomName
-                        },
+                            {
+                                time: new Date().toLocaleString('zh-CN', {
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }),
+                                content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                                sender: roomName
+                            },
                         ],
+                        index: index,
                         roomId: roomId,
                         roomName: roomName,
-                        num: data[room].num_members,
+                        memberNum: roomMember,
                     };
                     this.$store.state.rooms.push(newRoom);
-                    this.$store.state.roomsindex[roomName] = this.$store.state.rooms.length - 1;
+                    // this.$store.state.roomsindex[roomName] = this.$store.state.rooms.length - 1;
                 }
 
                 console.log(this.$store.state);

@@ -1,14 +1,3 @@
-<script setup>
-    import Header from '../components/Chatroom/Header.vue'
-    import Test from '../components/Test.vue'
-    import Input from '../components/Chatroom/Input.vue'
-    import ChatList from '../components/Chatroom/ChatList.vue'
-    import ProfileCard from '../components/Chatroom/ProfileCard.vue'
-    import ChatCard from '../components/Chatroom/ChatCard.vue'
-    import {set_Url} from '@/assets/setting';
-
-</script>
-
 <template>
     <div class="common-layout">
         <el-container id="container">
@@ -37,10 +26,29 @@
     <el-button id="send-button" @click="sendMessage"
     >Send
     </el-button>
+    <Drawer></Drawer>
 </template>
 
 <script>
+    import Header from '../components/Chatroom/Header.vue';
+    import Test from '../components/Test.vue';
+    import Input from '../components/Chatroom/Input.vue';
+    import ChatList from '../components/Chatroom/ChatList.vue';
+    import ProfileCard from '../components/Chatroom/ProfileCard.vue';
+    import ChatCard from '../components/Chatroom/ChatCard.vue';
+    import Drawer from "@/components/Chatroom/Drawer.vue";
+    import {set_Url} from '@/assets/setting';
+
     export default {
+        components:{
+            ChatCard,
+            Header,
+            Test,
+            Input,
+            ChatList,
+            ProfileCard,
+            Drawer
+        },
         data() {
             return {
                 userInfoVisible: false,
