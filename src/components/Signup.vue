@@ -2,6 +2,7 @@
 import WelcomeItem from './WelcomeItem.vue'
 import home from './Home.vue'
 import {RouterLink} from 'vue-router'
+import {set_Url} from '@/assets/setting';
 </script>
 
 <template>
@@ -95,7 +96,8 @@ export default {
         try {
           // 发送登录请求
           console.log('登录中...')
-          const response = await fetch('http://47.94.222.108:5000/api/signup', {
+          // const response = await fetch('http://47.94.222.108:5000/api/signup', {
+          const response = await fetch(set_Url + '/api/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
