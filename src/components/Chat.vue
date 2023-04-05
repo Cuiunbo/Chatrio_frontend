@@ -128,6 +128,7 @@ export default {
           sender: this.username,
         },
         roomId : this.state.currentRoom,
+        token: this.token,
       };
       console.log('发送消息:', message);
       this.$socket.emit("message", message);
