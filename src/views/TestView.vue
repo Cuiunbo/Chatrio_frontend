@@ -6,8 +6,8 @@
     import ProfileCard from '../components/Chatroom/ProfileCard.vue'
     import ChatCard from '../components/Chatroom/ChatCard.vue'
     import {set_Url} from '@/assets/setting';
-    import {keys} from 'lodash'
-    import Drawer from '../components/Chatroom/Drawer.vue'
+import { keys } from 'lodash'
+
 </script>
 
 <template>
@@ -24,9 +24,9 @@
                 <el-container>
                     <el-main id="main">
 
-                        <!--                        <div v-for="(message, index) in messages" :key="index">-->
-                        <!--                            {{ message }}-->
-                        <!--                        </div>-->
+<!--                        <div v-for="(message, index) in messages" :key="index">-->
+<!--                            {{ message }}-->
+<!--                        </div>-->
                     </el-main>
                     <el-footer id="footer">
                         <Input ref="input"></Input>
@@ -38,8 +38,6 @@
     <el-button id="send-button" @click="sendMessage"
     >Send
     </el-button>
-    <Drawer></Drawer>
-
 </template>
 
 <script>
@@ -182,6 +180,8 @@
                 }
 
                 console.log(this.$store.state);
+                //const roomId = this.$store.state.roomsindex.roomId;
+                //TODO:this.$socket.emit("get_all_history", roomId);
             },
         },
     };
