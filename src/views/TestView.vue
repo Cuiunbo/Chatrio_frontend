@@ -68,6 +68,8 @@
             this.userid = this.$cookies.get('userid');
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
+            this.$store.state.userid = this.userid;
+            console.log(1);
             console.log('当前用户:', this.username, '组件加载完毕');
             console.log('前端发送获取列表请求');
             // roomlist -> 前端发送 get_room_list -> 后端发送 room_list
@@ -152,7 +154,7 @@
             // 接收聊天室列表
             room_list(data) {
                 // console.log(this.$store.state);
-                // console.log('接收聊天室列表:', data);   
+                // console.log('接收聊天室列表:', data);
                 //         //TODO: 未实现的群显示用户功能
                 //         // roomType: data[room].room_type,
                 //         // roomMembers: data[room].room_members,
@@ -169,7 +171,7 @@
                     }
                     const newRoom = {
                         history: [
-                           
+
                         ],
                         roomId: roomId,
                         roomName: roomName,
@@ -179,14 +181,13 @@
                     this.$store.state.roomsindex['roomName'][roomName] = this.$store.state.rooms.length - 1;
                     this.$store.state.roomsindex['roomId'][roomId] = this.$store.state.rooms.length - 1;
                 }
-                
+
                 console.log("后端获取聊天室列表成功, 并发送给前端 : ",this.$store.state);
+                this.render = true;
+                console.log("render = true");
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
-                
-                // this.render = true;
-
-            },
+                },
 
             room_history(data) {
                 // console.log('接收聊天室历史消息:', data);

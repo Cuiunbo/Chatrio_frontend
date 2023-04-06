@@ -3,6 +3,7 @@ import {createStore} from 'vuex'
 const index = createStore({
     state() {
         return {
+            userid:'Userid',
             username: 'Username',
             email: 'example@email.com',
             currentRoom: 0,
