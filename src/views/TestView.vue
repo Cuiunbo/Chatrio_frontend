@@ -97,6 +97,7 @@
                         sender: this.username,
                     },
                     roomId: this.$store.state.rooms[this.$store.state.currentRoom].roomId,
+                    userId: this.$cookies.get('token'),
                 };
                 // console.log('发送消息:', message);
                 this.$socket.emit("message", message);
