@@ -8,24 +8,20 @@
                 </el-avatar>
                 </div>
                 <div class="details">
-                <el-row class="nickname">
-                    {{this.room.roomName }}
-                </el-row>
-                <el-row class="message-detail" :style="{ color: 'gray',  fontSize: '5px',whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}">
-                    {{ this.room.unread > 0 ? '['+this.room.unread + ']条' : '' }}
-                    {{ this.room.history[this.room.history.length - 1].sender + ': ' + (this.room.history[this.room.history.length - 1].content.length + this.room.history[this.room.history.length - 1].sender.length > 10 ? (this.room.history[this.room.history.length - 1].content.slice(0, 13 - this.room.history[this.room.history.length - 1].sender.length) + '...') : this.room.history[this.room.history.length - 1].content) }}
-                </el-row>
-                <!-- <el-row class="unread-count" v-if="this.room.unread > 0" :style="{ color: 'red', fontFamily: 'Arial, sans-serif', fontSize: '8px' }">
-                    {{ this.room.unread }}
-                </el-row> -->
-                
+                    <el-row class="nickname">
+                        {{this.room.roomName }}
+                    </el-row>
+                    <el-row class="message-detail" :style="{ color: 'gray',  fontSize: '5px',whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}">
+                        {{ this.room.unread > 0 ? '['+this.room.unread + ']条' : '' }}
+                        {{ this.room.history[this.room.history.length - 1].sender + ': ' + (this.room.history[this.room.history.length - 1].content.length + this.room.history[this.room.history.length - 1].sender.length > 10 ? (this.room.history[this.room.history.length - 1].content.slice(0, 13 - this.room.history[this.room.history.length - 1].sender.length) + '...') : this.room.history[this.room.history.length - 1].content) }}
+                    </el-row>
                 </div>
-                <div class="last-message-time">
-                    {{ formatTime(this.room.history[this.room.history.length - 1].time) }}
-                 </div>
+                
             </div>
         </el-row>
-
+        <div class="last-message-time">
+                    {{ formatTime(this.room.history[this.room.history.length - 1].time) }}
+                </div>
     </el-card>
 </template>
 <script lang="ts">
@@ -87,13 +83,11 @@ import { method } from 'lodash';
 
 <style scoped>
 .last-message-time {
-    position: relative;
-  font-size: 8px;
-  color: gray;
-  padding: 2px 4px;
-  margin-left: 10px;
-  top: -20px;
-  left: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+    color: #999;
 }
 .unread-dot {
     position: absolute;
@@ -104,18 +98,12 @@ import { method } from 'lodash';
     border-radius: 50%;
     background-color: red;
   }
-    .message-detail {
-        /* font-size: 15px; */
-
-    }
-    #card {
-        height: 85px;
+ #card {
+        height: 70px;
         width: 100%;
-        display: flex;
+        /* display: flex; */
         align-items: center;
-        
     }
-
     .demo-basic {
         text-align: center;
     }
@@ -134,7 +122,7 @@ import { method } from 'lodash';
     }
 
     .demo-basic .block:not(:last-child) {
-        /*border-right: 1px solid var(--el-border-color);*/
+        border-right: 1px solid var(--el-border-color);
     }
 
     .demo-basic .block {
@@ -146,18 +134,30 @@ import { method } from 'lodash';
     }
 
     .avatar {
-        margin-right: 20px;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
     }
 
     .details {
-        margin-left: 15px;
+        margin-left: 10px;
+        flex: 1;
+        
     }
 
     .nickname {
-        font-size: 20px;
+        font-size: 16px;
+        margin-bottom: 4px;
     }
 
     .message-detail {
-        font-size: 15px;
+        font-size: 12px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+
 </style>
