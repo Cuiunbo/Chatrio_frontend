@@ -26,7 +26,7 @@
             // 切换聊天室
             joinRoom(room) {
                 this.$store.state.currentRoom = room-1;
-                console.log(this.$store.state.currentRoom);
+                console.log('切换聊天室:',this.$store.state.currentRoom);
                 // this.messages = this.state.rooms[room].history;
             },
         }

@@ -59,6 +59,8 @@
 
             };
         },
+        // 页面生成 -> 证明 组件已经挂载
+        // profile -> chatlist -> chatcard
         created() {
             this.username = this.$cookies.get('username');
             this.token = this.$cookies.get('token');
@@ -66,9 +68,10 @@
             this.userid = this.$cookies.get('userid');
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
-            // console.log(1);
+            console.log('当前用户:', this.username, '组件加载完毕');
+            console.log('前端发送获取列表请求');
+            // roomlist -> 前端发送 get_room_list -> 后端发送 room_list
             this.$socket.emit("get_room_list", this.userid);
-
         },
 
         computed: {
@@ -99,7 +102,7 @@
                     roomId: this.$store.state.rooms[this.$store.state.currentRoom].roomId,
                     userId: this.$cookies.get('token'),
                 };
-                // console.log('发送消息:', message);
+                console.log('发送消息:', message);
                 this.$socket.emit("message", message);
                 this.$refs.input.textarea = ''; // 清空输入框
             },
@@ -107,12 +110,12 @@
         sockets: {
             // 接收消息
             message(data) {
-                // console.log('接收消息:', data);
+                console.log('接收消息:', data);
                 if (data.roomId in this.$store.state.roomsindex.roomId) {
                     const roomIndex = this.$store.state.roomsindex.roomId[data.roomId];
                     // console.log('index:', roomIndex);
                     this.$store.state.rooms[roomIndex].history.push(data.content);
-                    // console.log(this.$store.state.rooms[roomIndex].history);
+                    console.log('接受消息成功添加到前端内存',this.$store.state.rooms[roomIndex].history);
                 }
                 else {
                     // console.log('msg not for you');
@@ -150,8 +153,8 @@
                     this.$store.state.roomsindex['roomId'][roomId] = this.$store.state.rooms.length - 1;
                 }
                 this.render = true;
-
-                // console.log(this.$store.state);
+                
+                console.log("后端获取聊天室列表成功, 并发送给前端 : ",this.$store.state);
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
             },
