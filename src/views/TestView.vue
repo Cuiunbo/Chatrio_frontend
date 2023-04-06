@@ -165,16 +165,16 @@
                     }
                     const newRoom = {
                         history: [
-                            {
-                                time: new Date().toLocaleString('zh-CN', {
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                }),
-                                content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                                sender: roomName
-                            },
+                            // {
+                            //     time: new Date().toLocaleString('zh-CN', {
+                            //         month: '2-digit',
+                            //         day: '2-digit',
+                            //         hour: '2-digit',
+                            //         minute: '2-digit'
+                            //     }),
+                            //     content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
+                            //     sender: roomName
+                            // },
                         ],
                         roomId: roomId,
                         roomName: roomName,
@@ -193,13 +193,20 @@
 
             room_history(data) {
                 console.log('接收聊天室历史消息:', data);
-                for (const room in data) {
-                    const roomId = parseInt(room);
-                    const existingRoom = this.$store.state.rooms.find((room) => room.roomId === roomId);
-                    if (existingRoom) {
-                        existingRoom.history = data[room];
-                    }
+                // 通过roomId找到对应的roomindex
+                const roomIndex = this.$store.state.roomsindex.roomId[data['room_id']];
+                for (const room in data['result'].history) {
+                    const sender = data['result'].history[room].sender;
+                    const content = data['result'].history[room].content;
+                    const time = data['result'].history[room].time;
+                    const newMessage = {
+                        time: time,
+                        content: content,
+                        sender: sender,
+                    };
+                    this.$store.state.rooms[roomIndex].history.push(newMessage);
                 }
+                console.log(this.$store.state);
             },
         },
     };
