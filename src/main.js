@@ -8,6 +8,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import socket from './socket';
 import index from '@/store'
+import "../src/mock/index.js"
 import {set_Url} from '@/assets/setting.js'
 
 const app = createApp(App)

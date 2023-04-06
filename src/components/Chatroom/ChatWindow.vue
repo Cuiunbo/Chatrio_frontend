@@ -84,12 +84,12 @@ export default {
     //   this.scrollBottom();
     // },
     //todo:获取窗口高度并滚动至最底层
-    // scrollBottom() {
-    //   this.$nextTick(() => {
-    //     const scrollDom = this.$refs.chatContent;
-    //     animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
-    //   });
-    // },
+    scrollBottom() {
+      this.$nextTick(() => {
+        const scrollDom = this.$refs.chatContent;
+        animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
+      });
+    },
     // //关闭标签框
     // clickEmoji() {
     //   this.showEmoji = !this.showEmoji;
