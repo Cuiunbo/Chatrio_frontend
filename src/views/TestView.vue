@@ -116,6 +116,30 @@
                     // console.log('index:', roomIndex);
                     this.$store.state.rooms[roomIndex].history.push(data.content);
                     console.log('接受消息成功添加到前端内存',this.$store.state.rooms[roomIndex].history);
+                    // 对state.rooms按照history的最后一条消息的时间排序
+                    this.$store.state.rooms.sort((a, b) => {
+                        // console.log('a:', a);
+                        // console.log('b:', b);
+                        const lastMsgTimeA = new Date(a.history[a.history.length - 1].time);
+                        const lastMsgTimeB = new Date(b.history[b.history.length - 1].time);
+                        // console.log('lastMsgTimeA:', lastMsgTimeA);
+                        // console.log('lastMsgTimeB:', lastMsgTimeB);
+                        if (lastMsgTimeA < lastMsgTimeB) {
+                            // console.log('a < b');
+                            return 1;
+                        } else if (lastMsgTimeA > lastMsgTimeB) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                    for (let i = 0; i < this.$store.state.rooms.length; i++) {
+                        this.$store.state.roomsindex['roomName'][this.$store.state.rooms[i].roomName] = i;
+                        this.$store.state.roomsindex['roomId'][this.$store.state.rooms[i].roomId] = i;
+                    }
+                    console.log('state.rooms:', this.$store.state.rooms);
+
+                    // 对于当前聊天室的消息，不需要更新未读消息数
                 }
                 else {
                     // console.log('msg not for you');
@@ -152,11 +176,13 @@
                     this.$store.state.roomsindex['roomName'][roomName] = this.$store.state.rooms.length - 1;
                     this.$store.state.roomsindex['roomId'][roomId] = this.$store.state.rooms.length - 1;
                 }
-                this.render = true;
                 
                 console.log("后端获取聊天室列表成功, 并发送给前端 : ",this.$store.state);
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
+                
+                // this.render = true;
+
             },
 
             room_history(data) {
@@ -175,6 +201,31 @@
                     this.$store.state.rooms[roomIndex].history.push(newMessage);
                 }
                 // console.log(this.$store.state);
+            },
+
+            get_end(data) {
+                this.render = true;
+                this.$store.state.rooms.sort((a, b) => {
+                    // console.log('a:', a);
+                    // console.log('b:', b);
+                    const lastMsgTimeA = new Date(a.history[a.history.length - 1].time);
+                    const lastMsgTimeB = new Date(b.history[b.history.length - 1].time);
+                    // console.log('lastMsgTimeA:', lastMsgTimeA);
+                    // console.log('lastMsgTimeB:', lastMsgTimeB);
+                    if (lastMsgTimeA < lastMsgTimeB) {
+                        // console.log('a < b');
+                        return 1;
+                    } else if (lastMsgTimeA > lastMsgTimeB) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+                //更新roomsindex
+                for (let i = 0; i < this.$store.state.rooms.length; i++) {
+                    this.$store.state.roomsindex['roomName'][this.$store.state.rooms[i].roomName] = i;
+                    this.$store.state.roomsindex['roomId'][this.$store.state.rooms[i].roomId] = i;
+                }
             },
         },
     };

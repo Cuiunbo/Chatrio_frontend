@@ -23,7 +23,7 @@
     import {countdownEmits} from "element-plus";
 
     export default {
-        props: ['count'],
+        props: ['room'],
         data() {
             return {
                 id: 0,
@@ -32,7 +32,7 @@
             }
         },
         mounted() {
-            const room_info=this.$store.state.rooms[this.count - 1];
+            const room_info= this.room
             // console.log(this.$store.state);
             this.id = room_info.id;
             this.roomname = room_info['roomName'];

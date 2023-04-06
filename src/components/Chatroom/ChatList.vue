@@ -1,8 +1,13 @@
 <template>
     <el-scrollbar>
-        <ChatCard v-for="count1 in this.length" :count="count1"
+        <!-- <ChatCard v-for="count1 in this.length" :count="count1"
                   class="scrollbar-demo-item"
                   @click="joinRoom(count1)"
+        ></ChatCard> -->
+        <ChatCard v-for="(room, index) in this.$store.state.rooms"
+                    :key="room.roomId"
+                    :room="room"
+                    @click="joinRoom(index)"
         ></ChatCard>
     </el-scrollbar>
 </template>
@@ -21,11 +26,12 @@
         },
         created() {
             this.length=this.$store.state.rooms.length;
+            
         },
         methods:{
             // 切换聊天室
             joinRoom(room) {
-                this.$store.state.currentRoom = room-1;
+                this.$store.state.currentRoom = room;
                 console.log('切换聊天室:',this.$store.state.currentRoom);
                 // this.messages = this.state.rooms[room].history;
             },
