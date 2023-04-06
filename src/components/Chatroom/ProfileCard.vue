@@ -5,9 +5,11 @@
     <el-card :body-style="{ padding: '0px' }">
         <Avatar1></Avatar1>
         <div @click="print" style="padding: 14px">
-            <p>{{ nickname }}</p>
+            <p>{{ '昵称: ' + nickname }}</p>
             <div class="bottom">
-                <p class="email">{{ email }}</p>
+                <!-- <p>{{ 'ID: ' + id }}</p> -->
+                <p class="email">{{'邮箱: '+ email }}</p>
+                <p>{{ 'Token: ' + id }}</p>
             </div>
         </div>
     </el-card>
@@ -18,7 +20,8 @@
         data() {
             return {
                 nickname: 'Username',
-                email: 'default@email.com'
+                email: 'default@email.com',
+                id: 0,
             };
         },
         methods: {
@@ -26,6 +29,7 @@
         mounted() {
             this.nickname = this.$store.state.username;
             this.email = this.$store.state.email;
+            this.id = this.$store.state.userid;
         }
     };
 </script>
@@ -50,7 +54,7 @@
     }
 
     .image {
-        width: 100%;
+
         display: block;
     }
 </style>

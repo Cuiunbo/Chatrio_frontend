@@ -24,7 +24,7 @@
                 </el-aside>
                 <el-container>
                     <el-main id="main">
-                      <ChatWindow></ChatWindow>
+                      <!-- <ChatWindow></ChatWindow> -->
                         <!--                        <div v-for="(message, index) in messages" :key="index">-->
                         <!--                            {{ message }}-->
                         <!--                        </div>-->
