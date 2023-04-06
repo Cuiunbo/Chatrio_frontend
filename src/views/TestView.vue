@@ -127,33 +127,12 @@
             // 接收聊天室列表
             room_list(data) {
                 console.log(this.$store.state);
-                console.log('接收聊天室列表:', data);
-                // for (const room in data) {
-                //     // console.log(data[room].room_name);
-                //     // console.log(room)
-                //     this.$store.state.rooms[data[room].room_name] ={
-                //         history: [
-                //         {
-                //             time: new Date().toLocaleString('zh-CN', {
-                //                 month: '2-digit',
-                //                 day: '2-digit',
-                //                 hour: '2-digit',
-                //                 minute: '2-digit'
-                //             }),
-                //             content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                //             sender: data[room].room_name
-                //             },
-                //         ],
-                //         roomId: room, 
-                //         roomName: data[room].room_name, // 冗余
-                //         num: data[room].num_members,
+                console.log('接收聊天室列表:', data);   
                 //         //TODO: 未实现的群显示用户功能
                 //         // roomType: data[room].room_type,
                 //         // roomMembers: data[room].room_members,
                 //         // membersNum: data[room].room_members.length,
                 //         // roomAvatar: data[room].room_avatar,
-                //     }
-                // }
                 this.$store.state.rooms = [];
                 for (const room in data) {
                     const roomName = data[room].room_name;
