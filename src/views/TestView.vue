@@ -98,7 +98,7 @@
                     },
                     roomId: this.$store.state.rooms[this.$store.state.currentRoom].roomId,
                 };
-                console.log('发送消息:', message);
+                // console.log('发送消息:', message);
                 this.$socket.emit("message", message);
                 this.$refs.input.textarea = ''; // 清空输入框
             },
@@ -106,12 +106,12 @@
         sockets: {
             // 接收消息
             message(data) {
-                console.log('接收消息:', data);
+                // console.log('接收消息:', data);
                 if (data.roomId in this.$store.state.roomsindex.roomId) {
                     const roomIndex = this.$store.state.roomsindex.roomId[data.roomId];
-                    console.log('index:', roomIndex);
+                    // console.log('index:', roomIndex);
                     this.$store.state.rooms[roomIndex].history.push(data.content);
-                    console.log(this.$store.state.rooms[roomIndex].history);
+                    // console.log(this.$store.state.rooms[roomIndex].history);
                 }
                 else {
                     // console.log('msg not for you');
