@@ -34,6 +34,7 @@
                 this.$store.state.currentRoom = room;
                 console.log('切换聊天室:',this.$store.state.currentRoom);
                 // this.messages = this.state.rooms[room].history;
+                this.$store.state.rooms[room].unread = 0;
             },
         }
     }

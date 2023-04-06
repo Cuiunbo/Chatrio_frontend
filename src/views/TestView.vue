@@ -140,6 +140,9 @@
                     console.log('state.rooms:', this.$store.state.rooms);
 
                     // 对于当前聊天室的消息，不需要更新未读消息数
+                    if (this.$store.state.currentRoom !== roomIndex) {
+                        this.$store.state.rooms[roomIndex].unread += 1;
+                    }
                 }
                 else {
                     // console.log('msg not for you');

@@ -7,10 +7,15 @@
                 </div>
                 <div class="details">
                     <el-row class="nickname">
-                        {{ roomname }}
+                        {{ this.room.roomName }}
                     </el-row>
-                    <el-row class="message-detail">
-                        88
+                    <el-row class="message-detail" :style="{ color: 'gray', fontFamily: 'Arial, sans-serif',  fontSize:'8px'}">
+                        {{this.room.history[this.room.history.length - 1].sender 
+                        +  ' :'+
+                        this.room.history[this.room.history.length - 1].content}}
+                    </el-row>
+                    <el-row class="unread-count" v-if="this.room.unread > 0" :style="{ color: 'red', fontFamily: 'Arial, sans-serif',  fontSize:'8px'}">
+                        Unread messages: {{ this.room.unread }}
                     </el-row>
                 </div>
 
@@ -29,6 +34,8 @@
                 id: 0,
                 roomname: '',
                 members: 2,
+                lastMessage: '',
+                unread: 0,
             }
         },
         mounted() {
@@ -37,6 +44,8 @@
             this.id = room_info.id;
             this.roomname = room_info['roomName'];
             this.members = room_info.members;
+            const a = room_info.history[room_info.history.length - 1]
+            this.lastMessage =a.sender +  ' :'+a.content;
             // console.log(this.roomname);
         }
     }
@@ -50,6 +59,10 @@
 </script>
 
 <style scoped>
+    .message-detail {
+        font-size: 15px;
+
+    }
     #card {
         height: 90px;
     }

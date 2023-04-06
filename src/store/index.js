@@ -15,6 +15,7 @@ const index = createStore({
                   roomId: 0,
                   roomName: 'roomdefault',
                   num: 2,
+                  unread: 0,
                 },
             ],
             roomsindex:{
