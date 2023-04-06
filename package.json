@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development vite --host",
+    "dev": "cross-env NODE_ENV=development vite --host",
     "server": "NODE_ENV=production vite --host",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "element-plus": "^2.3.1",
     "socket.io-client": "^4.6.1",
     "vue": "^3.2.47",
