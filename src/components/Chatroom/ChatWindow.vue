@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import { animation } from "@/util/util";
-import { getChatMsg } from "@/api/getData";
+import { animation } from "../../assets/util/util";
+import { getChatMsg } from "../../api/getData";
 
 // import HeadPortrait from "@/components/HeadPortrait";
 // import Emoji from "@/components/Emoji";
@@ -83,13 +83,13 @@ export default {
     //   this.chatList.push(msgList);
     //   this.scrollBottom();
     // },
-    //获取窗口高度并滚动至最底层
-    scrollBottom() {
-      this.$nextTick(() => {
-        const scrollDom = this.$refs.chatContent;
-        animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
-      });
-    },
+    //todo:获取窗口高度并滚动至最底层
+    // scrollBottom() {
+    //   this.$nextTick(() => {
+    //     const scrollDom = this.$refs.chatContent;
+    //     animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
+    //   });
+    // },
     // //关闭标签框
     // clickEmoji() {
     //   this.showEmoji = !this.showEmoji;
