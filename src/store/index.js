@@ -19,14 +19,12 @@ const index = createStore({
             ],
             roomsindex:{
                 roomId : {
-                    0:0,
                 },
                 roomName: {
                     roomdefault:0,
                 }
                 // roomname : index
             },
-            chatroom: [],
         }
     }
 })

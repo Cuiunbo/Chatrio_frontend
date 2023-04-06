@@ -33,7 +33,7 @@
         },
         mounted() {
             const room_info=this.$store.state.rooms[this.count - 1];
-            console.log(this.$store.state);
+            // console.log(this.$store.state);
             this.id = room_info.id;
             this.roomname = room_info['roomName'];
             this.members = room_info.members;

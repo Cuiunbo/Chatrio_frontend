@@ -23,7 +23,6 @@
                 </el-aside>
                 <el-container>
                     <el-main id="main">
-
                         <!--                        <div v-for="(message, index) in messages" :key="index">-->
                         <!--                            {{ message }}-->
                         <!--                        </div>-->
@@ -67,15 +66,12 @@
             this.userid = this.$cookies.get('userid');
             this.$store.state.username = this.username;
             this.$store.state.email = this.email;
-            console.log(1);
+            // console.log(1);
             this.$socket.emit("get_room_list", this.userid);
 
         },
 
         computed: {
-            // count() {
-            //     return this.input.length;
-            // },
 
         },
         methods: {
@@ -83,51 +79,49 @@
             // updateCount(event) {
             //     this.input = event.target.value.slice(0, this.maxCount);
             // },
-            // 切换聊天室
-            joinRoom(room) {
-                this.$store.state.currentRoom = room;
-                this.messages = this.state.rooms[room].history;
-            },
             // 发送消息
             sendMessage() {
                 const message = {
                     content: {
-                        time: new Date().toLocaleString('zh-CN', {
+                        // data to "%Y-%m-%d %H:%M:%S"
+                        time : new Date().toLocaleString('zh-CN', {
+                            hour12: false,
+                            year: 'numeric',
                             month: '2-digit',
                             day: '2-digit',
                             hour: '2-digit',
-                            minute: '2-digit'
+                            minute: '2-digit',
+                            second: '2-digit'
                         }),
-                        content: this.input,
+                        content: this.$refs.input.textarea,
                         sender: this.username,
                     },
-                    roomId: this.state.currentRoom,
+                    roomId: this.$store.state.rooms[this.$store.state.currentRoom].roomId,
                 };
                 console.log('发送消息:', message);
                 this.$socket.emit("message", message);
-                this.input = ''; // 清空输入框
+                this.$refs.input.textarea = ''; // 清空输入框
             },
         },
         sockets: {
             // 接收消息
             message(data) {
-                if (!this.state.rooms[data.roomId]) {
-                    this.state.rooms[data.roomId] = {
-                        history: [],
-                    };
+                console.log('接收消息:', data);
+                if (data.roomId in this.$store.state.roomsindex.roomId) {
+                    const roomIndex = this.$store.state.roomsindex.roomId[data.roomId];
+                    console.log('index:', roomIndex);
+                    this.$store.state.rooms[roomIndex].history.push(data.content);
+                    console.log(this.$store.state.rooms[roomIndex].history);
                 }
-                const room = this.state.rooms[data.roomId];
-                if (!room.history[data.sender]) {
-                    room.history[data.sender] = [];
+                else {
+                    // console.log('msg not for you');
                 }
-                room.history[data.sender].push(data['content']);
-                this.messages.push(data['content']);
             },
 
             // 接收聊天室列表
             room_list(data) {
-                console.log(this.$store.state);
-                console.log('接收聊天室列表:', data);   
+                // console.log(this.$store.state);
+                // console.log('接收聊天室列表:', data);   
                 //         //TODO: 未实现的群显示用户功能
                 //         // roomType: data[room].room_type,
                 //         // roomMembers: data[room].room_members,
@@ -144,16 +138,7 @@
                     }
                     const newRoom = {
                         history: [
-                            // {
-                            //     time: new Date().toLocaleString('zh-CN', {
-                            //         month: '2-digit',
-                            //         day: '2-digit',
-                            //         hour: '2-digit',
-                            //         minute: '2-digit'
-                            //     }),
-                            //     content: this.username + '! Hi, 我们是好友了👿, 来聊天吧!',
-                            //     sender: roomName
-                            // },
+                           
                         ],
                         roomId: roomId,
                         roomName: roomName,
@@ -165,13 +150,13 @@
                 }
                 this.render = true;
 
-                console.log(this.$store.state);
+                // console.log(this.$store.state);
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
             },
 
             room_history(data) {
-                console.log('接收聊天室历史消息:', data);
+                // console.log('接收聊天室历史消息:', data);
                 // 通过roomId找到对应的roomindex
                 const roomIndex = this.$store.state.roomsindex.roomId[data['room_id']];
                 for (const room in data['result'].history) {
@@ -185,7 +170,7 @@
                     };
                     this.$store.state.rooms[roomIndex].history.push(newMessage);
                 }
-                console.log(this.$store.state);
+                // console.log(this.$store.state);
             },
         },
     };

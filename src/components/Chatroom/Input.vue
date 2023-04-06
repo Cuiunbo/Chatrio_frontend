@@ -24,6 +24,7 @@
             print() {
                 console.log(this.textarea)
             },
+            
         },
     };
 </script>
