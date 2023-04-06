@@ -3,29 +3,35 @@
         <el-row class="demo-avatar demo-basic">
             <div class="demo-basic--circle">
                 <div class="block">
-                    <el-avatar class="avatar" :shape="'square'" :size="50" :src="squareUrl"/>
+                <el-avatar class="avatar" :shape="'square'" :size="50" :src="squareUrl">
+                    <div class="unread-dot" v-if="this.room.unread > 0"></div>
+                </el-avatar>
                 </div>
                 <div class="details">
-                    <el-row class="nickname">
-                        {{ this.room.roomName }}
-                    </el-row>
-                    <el-row class="message-detail" :style="{ color: 'gray', fontFamily: 'Arial, sans-serif',  fontSize:'8px'}">
-                        {{this.room.history[this.room.history.length - 1].sender 
-                        +  ' :'+
-                        this.room.history[this.room.history.length - 1].content}}
-                    </el-row>
-                    <el-row class="unread-count" v-if="this.room.unread > 0" :style="{ color: 'red', fontFamily: 'Arial, sans-serif',  fontSize:'8px'}">
-                        Unread messages: {{ this.room.unread }}
-                    </el-row>
+                <el-row class="nickname">
+                    {{this.room.roomName }}
+                </el-row>
+                <el-row class="message-detail" :style="{ color: 'gray',  fontSize: '5px',whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}">
+                    {{ this.room.unread > 0 ? '['+this.room.unread + ']条' : '' }}
+                    {{ this.room.history[this.room.history.length - 1].sender + ': ' + (this.room.history[this.room.history.length - 1].content.length + this.room.history[this.room.history.length - 1].sender.length > 10 ? (this.room.history[this.room.history.length - 1].content.slice(0, 13 - this.room.history[this.room.history.length - 1].sender.length) + '...') : this.room.history[this.room.history.length - 1].content) }}
+                </el-row>
+                <!-- <el-row class="unread-count" v-if="this.room.unread > 0" :style="{ color: 'red', fontFamily: 'Arial, sans-serif', fontSize: '8px' }">
+                    {{ this.room.unread }}
+                </el-row> -->
+                
                 </div>
-
+                <div class="last-message-time">
+                    {{ formatTime(this.room.history[this.room.history.length - 1].time) }}
+                 </div>
             </div>
         </el-row>
+
     </el-card>
 </template>
 <script lang="ts">
     import {defineProps, reactive, toRefs} from 'vue'
     import {countdownEmits} from "element-plus";
+import { method } from 'lodash';
 
     export default {
         props: ['room'],
@@ -47,6 +53,27 @@
             const a = room_info.history[room_info.history.length - 1]
             this.lastMessage =a.sender +  ' :'+a.content;
             // console.log(this.roomname);
+        },
+        methods:{
+            formatTime(timeStr) {
+                const date = new Date(timeStr);
+                const now = new Date();
+                if (
+                    date.getFullYear() === now.getFullYear() &&
+                    date.getMonth() === now.getMonth() &&
+                    date.getDate() === now.getDate()
+                ) {
+                    // 当天时间，显示几点几分
+                    const hours = date.getHours().toString().padStart(2, '0');
+                    const minutes = date.getMinutes().toString().padStart(2, '0');
+                    return `${hours}:${minutes}`;
+                } else {
+                    // 非当天时间，显示几月几日
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day = date.getDate().toString().padStart(2, '0');
+                    return `${month}-${day}`;
+                }
+                },
         }
     }
     const state = reactive({
@@ -59,12 +86,34 @@
 </script>
 
 <style scoped>
+.last-message-time {
+    position: relative;
+  font-size: 8px;
+  color: gray;
+  padding: 2px 4px;
+  margin-left: 10px;
+  top: -20px;
+  left: 0;
+}
+.unread-dot {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+  }
     .message-detail {
-        font-size: 15px;
+        /* font-size: 15px; */
 
     }
     #card {
-        height: 90px;
+        height: 85px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        
     }
 
     .demo-basic {

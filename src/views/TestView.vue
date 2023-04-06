@@ -183,8 +183,8 @@
                 }
 
                 console.log("后端获取聊天室列表成功, 并发送给前端 : ",this.$store.state);
-                this.render = true;
-                console.log("render = true");
+                // this.render = true;
+                // console.log("render = true");
                 const roomId = this.$store.state.roomsindex.roomId;
                 this.$socket.emit("get_all_history", roomId);
                 },
