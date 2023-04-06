@@ -7,6 +7,7 @@
     import ChatCard from '../components/Chatroom/ChatCard.vue'
     import {set_Url} from '@/assets/setting';
     import {keys} from 'lodash'
+    import ChatWindow from '../components/Chatroom/ChatWindow.vue'
 
 </script>
 
@@ -23,6 +24,7 @@
                 </el-aside>
                 <el-container>
                     <el-main id="main">
+                      <ChatWindow></ChatWindow>
                         <!--                        <div v-for="(message, index) in messages" :key="index">-->
                         <!--                            {{ message }}-->
                         <!--                        </div>-->

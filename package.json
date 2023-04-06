@@ -15,6 +15,8 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "element-plus": "^2.3.1",
+    "require": "^2.4.20",
+    "sass": "^1.60.0",
     "socket.io-client": "^4.6.1",
     "vue": "^3.2.47",
     "vue-3-socket.io": "^1.0.5",
