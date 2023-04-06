@@ -3,7 +3,7 @@
         <el-row class="demo-avatar demo-basic">
             <div class="demo-basic--circle">
                 <div class="block">
-                <el-avatar class="avatar" :shape="'square'" :size="50" :src="squareUrl">
+                <el-avatar class="avatar" :shape="'square'" :size="50" :src="'https://robohash.org/' + this.room.roomName + '.png'">
                     <div class="unread-dot" v-if="this.room.unread > 0"></div>
                 </el-avatar>
                 </div>
@@ -27,7 +27,9 @@
 <script lang="ts">
     import {defineProps, reactive, toRefs} from 'vue'
     import {countdownEmits} from "element-plus";
-import { method } from 'lodash';
+    import { method } from 'lodash';
+    // import Avatar1 from '../Utils/Avatar.vue'
+
 
     export default {
         props: ['room'],
@@ -72,13 +74,6 @@ import { method } from 'lodash';
                 },
         }
     }
-    const state = reactive({
-        squareUrl:
-            'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-        sizeList: ['small', '', 'large'] as const,
-    })
-
-    const {circleUrl, squareUrl, sizeList} = toRefs(state)
 </script>
 
 <style scoped>
