@@ -82,6 +82,43 @@ export default {
 //  height: 100%;
 //  margin-left: 20px;
 //  position: relative;
+#header {
+  width: 100%;
+  height: 10px;
+  background-color:cornsilk;
+  padding: 0px;
+  display: flex;
+  .head-portrait {
+    width: 0px;
+    height: 0px;
+    // border-radius: 50%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .info {
+    margin-left: 20px;
+    .name {
+      font-size: 20px;
+      color: #fff;
+    }
+    .signature {
+      font-size: 14px;
+      color: #fff;
+    }
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 
 .botoom {
   width: 100%;
@@ -94,7 +131,7 @@ export default {
 
   .chat-content {
     width: 100%;
-    height: 100%;
+    height: 90%;
     overflow-y: scroll;
     //padding: 20px;
     box-sizing: border-box;

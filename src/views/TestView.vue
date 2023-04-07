@@ -25,9 +25,6 @@ import store from "@/store";
                     v-if="render"></ChatList>
         </el-aside>
         <el-container>
-            <el-header id="header">
-                
-            </el-header>
           <el-main id="main">
             <ChatWindow v-if="render"></ChatWindow>
             <!--                        <div v-for="(message, index) in messages" :key="index">-->
@@ -254,7 +251,7 @@ export default {
 
 #main {
   background: #f8f8f8;
-  height: 100%;
+  height: 80%;
 }
 
 #aside {
