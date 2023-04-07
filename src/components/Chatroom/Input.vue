@@ -31,7 +31,7 @@
 
 <style>
     #input {
-        height: 170px;
+        height: 150px;
         margin-bottom: 3px;
     }
 

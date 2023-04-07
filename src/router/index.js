@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from "@/views/SignupView.vue";
-import ChatView from "@/views/ChatView.vue";
 import TestView from "@/views/TestView.vue"
+import Chatroom from "@/views/Chatroom.vue";
 
 
 const router = createRouter({
@@ -10,20 +10,19 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            // component: TestView
-            component: LoginView
+            component: LoginView    // 登录界面
         },
         {
             path: '/signup',
-            component: SignupView
+            component: SignupView   // 注册界面
         },
         {
             path: '/chat',
-            component: TestView
+            component: Chatroom     // 聊天室
         },
         {
             path: '/test',
-            component: ChatView
+            component: TestView     // 测试用
         }
     ]
 })

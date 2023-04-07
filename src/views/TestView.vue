@@ -26,7 +26,7 @@ import store from "@/store";
         </el-aside>
         <el-container>
           <el-main id="main">
-            <ChatWindow v-if="render"></ChatWindow>
+            <ChatWindow ref="chat-window" v-if="render"></ChatWindow>
             <!--                        <div v-for="(message, index) in messages" :key="index">-->
             <!--                            {{ message }}-->
             <!--                        </div>-->
@@ -146,6 +146,8 @@ export default {
         // 对于当前聊天室的消息，不需要更新未读消息数
         if (this.$store.state.currentRoom !== roomIndex) {
           this.$store.state.rooms[roomIndex].unread += 1;
+        }else {
+          this.$refs["chat-window"].scrollBottom();
         }
       } else {
         // console.log('msg not for you');
@@ -240,6 +242,7 @@ export default {
 
 .common-layout {
   height: 100%;
+  padding-right: 5px;
 }
 
 #header {

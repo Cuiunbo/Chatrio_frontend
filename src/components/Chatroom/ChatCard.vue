@@ -11,7 +11,7 @@
                     <el-row class="nickname">
                         {{this.room.roomName }}
                     </el-row>
-                    <el-row class="message-detail" :style="{ color: 'gray',  fontSize: '5px',whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}">
+                    <el-row class="message-detail" :style="{ color: 'gray',  fontSize: '15px',whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}">
                         {{ this.room.unread > 0 ? '['+this.room.unread + ']条' : '' }}
                         {{ this.room.history[this.room.history.length - 1].sender + ': ' + (this.room.history[this.room.history.length - 1].content.length + this.room.history[this.room.history.length - 1].sender.length > 10 ? (this.room.history[this.room.history.length - 1].content.slice(0, 13 - this.room.history[this.room.history.length - 1].sender.length) + '...') : this.room.history[this.room.history.length - 1].content) }}
                     </el-row>
@@ -94,10 +94,11 @@
     background-color: red;
   }
  #card {
-        height: 70px;
+        height: 90px;
         width: 100%;
         /* display: flex; */
         align-items: center;
+   margin-bottom: 1px;
     }
     .demo-basic {
         text-align: center;

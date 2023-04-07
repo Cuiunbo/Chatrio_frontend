@@ -122,16 +122,17 @@ export default {
 
 .botoom {
   width: 100%;
-  height: 70vh;
+  height: 69vh;
   //background-color: rgb(50, 54, 68);
   border-radius: 20px;
   //padding: 20px;
+  //margin-right: 20px;
   box-sizing: border-box;
   position: relative;
 
   .chat-content {
     width: 100%;
-    height: 90%;
+    height: 100%;
     overflow-y: scroll;
     //padding: 20px;
     box-sizing: border-box;
@@ -149,7 +150,7 @@ export default {
       .chat-friend {
         width: 100%;
         float: left;
-        margin-bottom: 20px;
+        margin: 10px 0 10px 0;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -175,7 +176,7 @@ export default {
         }
 
         .info-time {
-          margin: 10px 0;
+          margin: 0;
           color: #fff;
           font-size: 14px;
 
@@ -203,7 +204,7 @@ export default {
       .chat-me {
         width: 100%;
         float: right;
-        margin-bottom: 20px;
+        margin: 10px 20px 10px 0;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -232,7 +233,7 @@ export default {
         }
 
         .info-time {
-          margin: 10px 0;
+          margin: 0px 0;
           color: #fff;
           font-size: 14px;
           display: flex;

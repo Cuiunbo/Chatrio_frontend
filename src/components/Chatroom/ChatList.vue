@@ -1,6 +1,7 @@
 <template>
     <el-scrollbar>
         <el-input
+            class="search"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
             v-model="search"
@@ -101,10 +102,7 @@
 </script>
 
 <style scoped>
-    .search-input {
-        margin-bottom: 10px;
-    }
-    .scrollbar-demo-item {
-        margin-bottom: 2px;
-    }
+  .search{
+    margin-bottom: 5px;
+  }
 </style>
