@@ -71,7 +71,7 @@
                     const day = date.getDate().toString().padStart(2, '0');
                     return `${month}-${day}`;
                 }
-                },
+            },
         }
     }
 </script>
