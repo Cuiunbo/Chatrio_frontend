@@ -43,6 +43,7 @@ export default {
   watch: {
     '$store.state.currentRoom'() {
       this.getFriendChatMsg();
+      // this.scrollBottom();
     }
   },
   data() {
@@ -56,6 +57,7 @@ export default {
   mounted() {
     this.username = store.state.username;
     this.getFriendChatMsg();
+
   },
   methods: {
     //获取聊天记录

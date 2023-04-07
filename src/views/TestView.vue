@@ -13,33 +13,6 @@ import store from "@/store";
 </script>
 
 <template>
-    <div class="common-layout">
-        <el-container id="container">
-            <el-header id="header">
-                <Header ref="ref_header"></Header>
-            </el-header>
-            <el-container>
-                <el-aside
-                        id="aside">
-                    <ChatList v-if="render"></ChatList>
-                </el-aside>
-                <el-container>
-                    <el-main id="main">
-                      <!-- <ChatWindow></ChatWindow> -->
-                        <!--                        <div v-for="(message, index) in messages" :key="index">-->
-                        <!--                            {{ message }}-->
-                        <!--                        </div>-->
-                    </el-main>
-                    <el-footer id="footer">
-                        <Input ref="input"></Input>
-                    </el-footer>
-                </el-container>
-            </el-container>
-        </el-container>
-    </div>
-    <el-button id="send-button" @click="sendMessage"
-    >Send
-    </el-button>
   <div class="common-layout">
     <el-container id="container">
       <el-header id="header">
