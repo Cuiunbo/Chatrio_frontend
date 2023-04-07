@@ -38,16 +38,18 @@
         <el-tab-pane label="Create Group" name="second">
           <el-form :model="form">
             <el-form-item label="Group Name">
-              <el-input clearable="true" class="in" v-model="form.id" autocomplete="off"/>
-
+              <el-input clearable="true" class="in" v-model="form2.name" autocomplete="off"/>
             </el-form-item>
-            <el-form-item label="ID">
-              <el-input clearable="true" class="in" v-model="form.id" autocomplete="off"/>
+            <el-form-item label="ID 1">
+              <el-input clearable="true" class="in" v-model="form2.id1" autocomplete="off"/>
+            </el-form-item>
+            <el-form-item label="ID 2">
+              <el-input clearable="true" class="in" v-model="form2.id2" autocomplete="off"/>
             </el-form-item>
           </el-form>
           <div class="demo-drawer__footer">
             <el-button @click="cancelForm">Cancel</el-button>
-            <el-button type="primary" :loading="loading" @click="onClick">{{
+            <el-button type="primary" :loading="loading" @click="onClick2">{{
                 loading ? 'Submitting' : 'Submit'
               }}
             </el-button>
@@ -79,11 +81,27 @@ const form = reactive({
   id: '',
 })
 
+const form2 = reactive({
+  name:'',
+  id1: '',
+  id2: '',
+})
+
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 const onClick = () => {
   loading.value = true;
   axios.post(set_Url + '/api/addContact',
       {username: store.state.userid, content: form}).then(res => {
+    console.log(res)
+  })
+  loading.value = false;
+  drawerRef.value!.close()
+}
+
+const onClick2 = () => {
+  loading.value = true;
+  axios.post(set_Url + '/api/createGroup',
+      {username: store.state.userid, content: form2}).then(res => {
     console.log(res)
   })
   loading.value = false;
