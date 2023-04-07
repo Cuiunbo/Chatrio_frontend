@@ -65,6 +65,7 @@ import {reactive, ref} from 'vue'
 import {ElDrawer, ElMessageBox} from 'element-plus'
 import axios from 'axios'
 import store from '../../store/index'
+import { ElMessage } from 'element-plus'
 
 
 import {set_Url} from '../../assets/setting';
@@ -103,9 +104,30 @@ const onClick2 = () => {
   axios.post(set_Url + '/api/createGroup',
       {username: store.state.userid, content: form2}).then(res => {
     console.log(res)
-  })
-  loading.value = false;
-  drawerRef.value!.close()
+    if (res.data.success) {
+      // 操作成功，显示提示消息
+      ElMessage({
+        message: 'Success!',
+        type: 'success',
+      });
+    } else {
+      // 操作失败，显示错误消息
+      ElMessage({
+        message: res.data.message,
+        type: 'error',
+      });
+    }
+  }).catch(error => {
+    console.error(error);
+    // 显示网络错误消息
+    ElMessage({
+      message: 'Network error!',
+      type: 'error',
+    });
+  }).finally(() => {
+    loading.value = false;
+    drawerRef.value!.close();
+  });
 }
 
 const cancelForm = () => {
