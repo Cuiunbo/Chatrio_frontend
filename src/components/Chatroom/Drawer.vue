@@ -13,7 +13,7 @@
   >
     <div class="demo-drawer__content">
       <el-tabs stretch="true" v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Add Contacts/Group" name="first" >
+        <el-tab-pane label="Add Contacts/Group" name="first">
           <el-form :model="form">
             <el-form-item>
               <div style="flex: 1"></div>
@@ -35,34 +35,26 @@
             </el-button>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="Create Group" name="second">Config</el-tab-pane>
-      </el-tabs>
+        <el-tab-pane label="Create Group" name="second">
+          <el-form :model="form">
+            <el-form-item label="Group Name">
+              <el-input clearable="true" class="in" v-model="form.id" autocomplete="off"/>
 
+            </el-form-item>
+            <el-form-item label="ID">
+              <el-input clearable="true" class="in" v-model="form.id" autocomplete="off"/>
+            </el-form-item>
+          </el-form>
+          <div class="demo-drawer__footer">
+            <el-button @click="cancelForm">Cancel</el-button>
+            <el-button type="primary" :loading="loading" @click="onClick">{{
+                loading ? 'Submitting' : 'Submit'
+              }}
+            </el-button>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
-<!--    <div class="demo-drawer__content">-->
-<!--      <el-form :model="form">-->
-<!--        <el-form-item>-->
-<!--          <div style="flex: 1"></div>-->
-<!--          <el-radio-group v-model="form.isGroup" class="ml-4">-->
-<!--            <el-radio label="0">Contact</el-radio>-->
-<!--            <el-radio label="1">Group</el-radio>-->
-<!--          </el-radio-group>-->
-<!--          <div style="flex: 1"></div>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="ID">-->
-<!--          <el-input class="in" v-model="form.id" autocomplete="off"/>-->
-<!--        </el-form-item>-->
-<!--      </el-form>-->
-<!--      <div class="demo-drawer__footer">-->
-<!--        <div style="flex: 1"></div>-->
-<!--        <el-button @click="cancelForm">Cancel</el-button>-->
-<!--        <el-button type="primary" :loading="loading" @click="onClick">{{-->
-<!--            loading ? 'Submitting' : 'Submit'-->
-<!--          }}-->
-<!--        </el-button>-->
-<!--        <div style="flex: 1"></div>-->
-<!--      </div>-->
-<!--    </div>-->
   </el-drawer>
 </template>
 
@@ -110,6 +102,7 @@ const cancelForm = () => {
 .in {
   /*width: 200px;*/
 }
+
 /*.demo-drawer__footer{*/
 /*  align-content: center;*/
 /*}*/

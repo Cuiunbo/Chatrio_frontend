@@ -110,8 +110,7 @@ export default {
           })
 
           if (response.ok) {
-            this.$router.push('/chat')
-            console.log('登录成功')
+            this.$router.push('/')
           } else {
             // 登录失败，显示错误信息
             const data = await response.json()
