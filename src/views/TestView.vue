@@ -25,6 +25,9 @@ import store from "@/store";
                     v-if="render"></ChatList>
         </el-aside>
         <el-container>
+            <el-header id="header">
+                
+            </el-header>
           <el-main id="main">
             <ChatWindow v-if="render"></ChatWindow>
             <!--                        <div v-for="(message, index) in messages" :key="index">-->
