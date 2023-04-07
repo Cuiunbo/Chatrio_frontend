@@ -26,12 +26,44 @@ import store from "../store";
             <el-container style="">
               <el-header style="background: #9c9c9c;
               border-radius: 8px;
-                                margin: 5px 5px 0 5px">
-                <div style="margin-top: 5px;
-                color: #eeeeee;
-                            font-size: 28px;">
-                  {{ store.state.rooms[store.state.currentRoom].roomName }}
+              display: flex;
+              margin: 5px 5px 0 5px">
+                <el-popover
+                    placement="left"
+                    :width="100"
+                    trigger="hover"
+                >
+                  <div style="text-align: center">
+                    RoomID: {{ store.state.rooms[store.state.currentRoom].roomId }}
+                  </div>
+                  <template #reference>
+                    <div style="margin-top: 5px;
+                              color: #eeeeee;
+                              width: 50px;
+                              font-size: 28px;">
+                      {{ store.state.rooms[store.state.currentRoom].roomName }}
+                    </div>
+                  </template>
+                </el-popover>
+                <div style="position: absolute;
+                              padding-top: 6px;
+                              right: 5px;"
+                >
+                  <svg class="settings" style="position: absolute;
+                              color: #eeeeee;
+                              right: 10px;
+                              width: 45px;
+                              height: 45px;" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
+                       data-v-ea893728="">
+                    <path fill="currentColor"
+                          d="M764.416 254.72a351.68 351.68 0 0 1 86.336 149.184H960v192.064H850.752a351.68 351.68 0 0 1-86.336 149.312l54.72 94.72-166.272 96-54.592-94.72a352.64 352.64 0 0 1-172.48 0L371.136 936l-166.272-96 54.72-94.72a351.68 351.68 0 0 1-86.336-149.312H64v-192h109.248a351.68 351.68 0 0 1 86.336-149.312L204.8 160l166.208-96h.192l54.656 94.592a352.64 352.64 0 0 1 172.48 0L652.8 64h.128L819.2 160l-54.72 94.72zM704 499.968a192 192 0 1 0-384 0 192 192 0 0 0 384 0z"></path>
+                  </svg>
                 </div>
+
+
+                <!--                </div>-->
+
+
               </el-header>
               <el-main style="padding: 0 0 0 20px;
               margin-bottom: 0;
@@ -40,21 +72,21 @@ import store from "../store";
                 <ChatWindow ref="chat-window" v-if="render"></ChatWindow>
               </el-main>
             </el-container>
-<!--            <el-container>-->
-<!--              <el-header style="background: #9c9c9c;-->
-<!--              border-radius: 8px;-->
-<!--                                margin: 5px 5px 0 5px">-->
-<!--                <div style="margin-top: 5px;-->
-<!--                color: #eeeeee;-->
-<!--                            font-size: 28px;">-->
-<!--                  {{ store.state.rooms[store.state.currentRoom].roomName }}-->
-<!--                </div>-->
-<!--              </el-header>-->
-<!--              <el-main style="padding: 0 0 0 20px;-->
-<!--                              height: 65vh">-->
-<!--                <ChatWindow ref="chat-window" v-if="render"></ChatWindow>-->
-<!--              </el-main>-->
-<!--            </el-container>-->
+            <!--            <el-container>-->
+            <!--              <el-header style="background: #9c9c9c;-->
+            <!--              border-radius: 8px;-->
+            <!--                                margin: 5px 5px 0 5px">-->
+            <!--                <div style="margin-top: 5px;-->
+            <!--                color: #eeeeee;-->
+            <!--                            font-size: 28px;">-->
+            <!--                  {{ store.state.rooms[store.state.currentRoom].roomName }}-->
+            <!--                </div>-->
+            <!--              </el-header>-->
+            <!--              <el-main style="padding: 0 0 0 20px;-->
+            <!--                              height: 65vh">-->
+            <!--                <ChatWindow ref="chat-window" v-if="render"></ChatWindow>-->
+            <!--              </el-main>-->
+            <!--            </el-container>-->
           </el-main>
           <el-footer id="footer">
             <Input ref="input"></Input>
@@ -364,5 +396,14 @@ export default {
   position: fixed;
   margin-left: 95%;
   margin-top: -6vh;
+}
+
+.settings{
+  position: absolute;
+  padding-top: 6px;
+  right: 5px;
+}
+.settings:active{
+  color:#2c3e50;
 }
 </style>
