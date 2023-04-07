@@ -219,6 +219,25 @@ export default {
       // console.log('接收聊天室历史消息:', data);
       // 通过roomId找到对应的roomindex
       const roomIndex = this.$store.state.roomsindex.roomId[data['room_id']];
+      // if room dont have history, create a new array
+      if (!this.$store.state.rooms[roomIndex].history) {
+        console.log('room dont have history, create a new array');
+        this.$store.state.rooms[roomIndex].history = [
+          {
+            time: new Date().toLocaleString('zh-CN', {
+              hour12: false,
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            }),
+            content: '欢迎来到聊天室',
+            sender: '系统消息',
+          },
+        ];
+      }
       for (const room in data['result'].history) {
         const sender = data['result'].history[room].sender;
         const content = data['result'].history[room].content;
@@ -234,10 +253,53 @@ export default {
     },
 
     get_end(data) {
-      this.render = true;
+      // if history is empty, create a new array
+
       this.$store.state.rooms.sort((a, b) => {
         // console.log('a:', a);
         // console.log('b:', b);
+        // if a history is empty, put it at the end
+        if (a.history.length === 0) {
+          console.log('a history is empty');
+          //初始化history
+          a.history = [
+            {
+              time: new Date().toLocaleString('zh-CN', {
+                hour12: false,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+              }),
+              content: '欢迎来到聊天室',
+              sender: '系统消息',
+            },
+          ];
+          return 1;
+        }
+        // if b history is empty, put it at the end
+        if (b.history.length === 0) {
+          console.log('b history is empty');
+          //初始化history
+          b.history = [
+            {
+              time: new Date().toLocaleString('zh-CN', {
+                hour12: false,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+              }),
+              content: '欢迎来到聊天室',
+              sender: '系统消息',
+            },
+          ];
+          return -1;
+        }
         const lastMsgTimeA = new Date(a.history[a.history.length - 1].time);
         const lastMsgTimeB = new Date(b.history[b.history.length - 1].time);
         // console.log('lastMsgTimeA:', lastMsgTimeA);
@@ -256,6 +318,8 @@ export default {
         this.$store.state.roomsindex['roomName'][this.$store.state.rooms[i].roomName] = i;
         this.$store.state.roomsindex['roomId'][this.$store.state.rooms[i].roomId] = i;
       }
+      this.render = true;
+
     },
   },
 };
