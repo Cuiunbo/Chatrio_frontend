@@ -72,21 +72,6 @@ import store from "../store";
                 <ChatWindow ref="chat-window" v-if="render"></ChatWindow>
               </el-main>
             </el-container>
-            <!--            <el-container>-->
-            <!--              <el-header style="background: #9c9c9c;-->
-            <!--              border-radius: 8px;-->
-            <!--                                margin: 5px 5px 0 5px">-->
-            <!--                <div style="margin-top: 5px;-->
-            <!--                color: #eeeeee;-->
-            <!--                            font-size: 28px;">-->
-            <!--                  {{ store.state.rooms[store.state.currentRoom].roomName }}-->
-            <!--                </div>-->
-            <!--              </el-header>-->
-            <!--              <el-main style="padding: 0 0 0 20px;-->
-            <!--                              height: 65vh">-->
-            <!--                <ChatWindow ref="chat-window" v-if="render"></ChatWindow>-->
-            <!--              </el-main>-->
-            <!--            </el-container>-->
           </el-main>
           <el-footer id="footer">
             <Input ref="input"></Input>
@@ -172,6 +157,8 @@ export default {
     // 接收消息
     message(data) {
       console.log('接收消息:', data);
+      //记录currentRoom的roomid
+      const currentRoomId = this.$store.state.rooms[this.$store.state.currentRoom].roomId;
       if (data.roomId in this.$store.state.roomsindex.roomId) {
         const roomIndex = this.$store.state.roomsindex.roomId[data.roomId];
         // console.log('index:', roomIndex);
@@ -179,12 +166,8 @@ export default {
         console.log('接受消息成功添加到前端内存', this.$store.state.rooms[roomIndex].history);
         // 对state.rooms按照history的最后一条消息的时间排序
         this.$store.state.rooms.sort((a, b) => {
-          // console.log('a:', a);
-          // console.log('b:', b);
           const lastMsgTimeA = new Date(a.history[a.history.length - 1].time);
           const lastMsgTimeB = new Date(b.history[b.history.length - 1].time);
-          // console.log('lastMsgTimeA:', lastMsgTimeA);
-          // console.log('lastMsgTimeB:', lastMsgTimeB);
           if (lastMsgTimeA < lastMsgTimeB) {
             // console.log('a < b');
             return 1;
@@ -198,7 +181,7 @@ export default {
           this.$store.state.roomsindex['roomName'][this.$store.state.rooms[i].roomName] = i;
           this.$store.state.roomsindex['roomId'][this.$store.state.rooms[i].roomId] = i;
         }
-        console.log('state.rooms:', this.$store.state.rooms);
+        console.log('state:', this.$store.state);
 
         // 对于当前聊天室的消息，不需要更新未读消息数
         if (this.$store.state.currentRoom !== roomIndex) {
@@ -209,12 +192,14 @@ export default {
       } else {
         // console.log('msg not for you');
       }
+      // 通过currentroomId找到对应的roomIndex
+      const roomIndex = this.$store.state.roomsindex.roomId[currentRoomId];
+      console.log('index:', roomIndex);
+      this.currentRoom = roomIndex;
     },
 
     // 接收聊天室列表
     room_list(data) {
-      // console.log(this.$store.state);
-      // console.log('接收聊天室列表:', data);
       //         //TODO: 未实现的群显示用户功能
       //         // roomType: data[room].room_type,
       //         // roomMembers: data[room].room_members,
@@ -285,8 +270,6 @@ export default {
     },
 
     get_end(data) {
-      // if history is empty, create a new array
-
       this.$store.state.rooms.sort((a, b) => {
         // console.log('a:', a);
         // console.log('b:', b);
